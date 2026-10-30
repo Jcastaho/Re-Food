@@ -1,0 +1,375 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "error-container": "#ffdad6", "outline": "#717975", "on-error": "#ffffff", "tertiary": "#182500", "outline-variant": "#c0c8c4", "inverse-primary": "#a4d0c0", "background": "#fafaf3", "on-primary-container": "#7da899", "primary-container": "#123d32", "on-tertiary-container": "#81ad22", "secondary-fixed-dim": "#b9d15d", "on-surface": "#1a1c18", "on-secondary-fixed": "#171e00", "tertiary-fixed": "#c2f362", "on-primary-fixed-variant": "#254e42", "surface-container-lowest": "#ffffff", "on-tertiary-fixed-variant": "#364e00", "error": "#ba1a1a", "on-tertiary": "#ffffff", "on-surface-variant": "#414845", "inverse-on-surface": "#f1f1ea", "on-secondary": "#ffffff", "on-primary-fixed": "#002019", "surface-tint": "#3d665a", "primary-fixed-dim": "#a4d0c0", "primary-fixed": "#bfecdc", "on-tertiary-fixed": "#141f00", "surface-container-low": "#f4f4ed", "surface-bright": "#fafaf3", "surface-container-highest": "#e3e3dc", "secondary": "#546500", "secondary-container": "#d5ee76", "inverse-surface": "#2f312d", "on-error-container": "#93000a", "tertiary-fixed-dim": "#a7d649", "surface": "#fafaf3", "on-secondary-container": "#596c00", "surface-container-high": "#e8e9e2", "surface-container": "#eeeee7", "surface-dim": "#dadad4", "on-primary": "#ffffff", "surface-variant": "#e3e3dc", "on-secondary-fixed-variant": "#3e4c00", "secondary-fixed": "#d5ee76", "primary": "#00261e", "on-background": "#1a1c18", "tertiary-container": "#293c00" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter": "1.5rem", "margin": "3rem", "gutter-mobile": "1rem", "space-sm": "0.5rem", "space-md": "1rem", "space-xs": "0.25rem", "margin-tablet": "2rem", "space-xl": "2.5rem", "margin-mobile": "1.25rem", "space-lg": "1.5rem" }, "fontFamily": { "display-hero": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "headline-md": [ "Plus Jakarta Sans" ], "metric-display": [ "Plus Jakarta Sans" ], "body-md": [ "Inter" ], "label-sm": [ "Inter" ], "label-md": [ "Inter" ], "label-lg": [ "Inter" ], "display-hero-mobile": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "headline-lg": [ "Plus Jakarta Sans" ], "title-md": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "metric-display-mobile": [ "Plus Jakarta Sans" ], "body-sm": [ "Inter" ] }, "fontSize": { "display-hero": [ "56px", { "lineHeight": "64px", "letterSpacing": "-0.03em", "fontWeight": "700" } ], "body-lg": [ "18px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "400" } ], "headline-md": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" } ], "metric-display": [ "48px", { "lineHeight": "52px", "letterSpacing": "-0.03em", "fontWeight": "800" } ], "body-md": [ "15px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "label-sm": [ "10px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" } ], "label-md": [ "12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "label-lg": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "headline-sm": [ "20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.025em", "fontWeight": "700" } ], "title-md": [ "16px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "headline-lg-mobile": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "metric-display-mobile": [ "32px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800" } ], "body-sm": [ "13px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" } ] } } } };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-screen w-[216px] bg-primary-container text-on-primary z-50 flex flex-col justify-between py-space-md px-space-sm select-none"><div class="flex flex-col gap-space-md"><div class="px-space-xs flex items-center justify-between"><div class="flex items-center py-0.5"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" class="h-9 w-auto max-w-full" fill="none"><g transform="translate(15, 20)"><path d="M 32 5 C 10 20 6 42 18 55 C 24 40 28 22 32 5 Z" fill="#E6EDE3"></path><path d="M 34 5 C 38 22 42 40 36 55 C 50 45 54 22 34 5 Z" fill="#60BA80"></path></g><text x="85" y="58" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="800" font-size="44" letter-spacing="-0.03em"><tspan fill="#60BA80">Re</tspan><tspan fill="#FFFFFF">Food</tspan></text><text x="86" y="78" font-family="'Plus Jakarta Sans', system-ui, -apple-system, sans-serif" font-weight="600" font-size="9" fill="#E6EDE3" letter-spacing="0.22em">CONECTA · DONA · APROVECHA</text></svg></div></div><div class="px-space-xs"><span class="font-label-sm text-label-sm uppercase tracking-wider text-on-primary-container font-semibold">CENTRO DE CONTROL</span></div><nav class="flex flex-col gap-1" data-active-classes="bg-[#1b4e41] text-on-primary font-semibold border-l-2 border-secondary-container"><a aria-current="page" class="flex items-center gap-space-xs px-space-xs py-2 rounded-lg transition-all bg-[#1b4e41] text-on-primary font-semibold border-l-2 border-secondary-container" data-path="resumen" href="#"><span class="material-symbols-outlined text-[18px]">dashboard</span><span class="font-label-lg text-label-lg">Resumen</span></a><a class="flex items-center gap-space-xs px-space-xs py-2 rounded-lg text-primary-fixed-dim hover:bg-[#1b4e41] hover:text-on-primary transition-all" data-path="mis-excedentes" href="#"><span class="material-symbols-outlined text-[18px]">inventory_2</span><span class="font-label-lg text-label-lg">Mis excedentes</span></a><a class="flex items-center gap-space-xs px-space-xs py-2 rounded-lg text-primary-fixed-dim hover:bg-[#1b4e41] hover:text-on-primary transition-all" data-path="organizaciones" href="#"><span class="material-symbols-outlined text-[18px]">diversity_3</span><span class="font-label-lg text-label-lg">Organizaciones</span></a><a class="flex items-center gap-space-xs px-space-xs py-2 rounded-lg text-primary-fixed-dim hover:bg-[#1b4e41] hover:text-on-primary transition-all" data-path="impacto" href="#"><span class="material-symbols-outlined text-[18px]">eco</span><span class="font-label-lg text-label-lg">Impacto</span></a><a class="flex items-center gap-space-xs px-space-xs py-2 rounded-lg text-primary-fixed-dim hover:bg-[#1b4e41] hover:text-on-primary transition-all" data-path="guia-conservacion" href="#"><span class="material-symbols-outlined text-[18px]">menu_book</span><span class="font-label-lg text-label-lg">Guía de conservación</span></a><a class="flex items-center gap-space-xs px-space-xs py-2 rounded-lg text-primary-fixed-dim hover:bg-[#1b4e41] hover:text-on-primary transition-all" data-path="configuracion" href="#"><span class="material-symbols-outlined text-[18px]">tune</span><span class="font-label-lg text-label-lg">Configuración</span></a></nav></div><div class="flex flex-col gap-space-sm pt-space-xs"><div class="bg-[#0d2d25] rounded-xl p-space-xs flex flex-col gap-1"><div class="flex items-center gap-1 text-secondary-container"><span class="material-symbols-outlined text-[16px]">volunteer_activism</span><span class="font-label-sm text-label-sm font-semibold uppercase">Tu aporte cuenta</span></div><p class="font-body-sm text-body-sm text-primary-fixed-dim leading-snug">Medellín y Valle de Aburrá reducen huella de carbono con cada rescate.</p></div><div class="bg-[#164438] rounded-xl p-space-xs flex items-center justify-between cursor-pointer hover:bg-[#1c5244] transition-colors"><div class="flex items-center gap-space-xs overflow-hidden"><div class="w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container font-headline-sm text-headline-sm flex items-center justify-center font-bold text-xs shrink-0">PB</div><div class="flex flex-col min-w-0"><span class="font-label-md text-label-md text-on-primary truncate font-medium">Provenza Bistro &amp; Café</span><span class="font-label-sm text-label-sm text-primary-fixed-dim truncate">El Poblado · Medellín</span></div></div><span class="material-symbols-outlined text-primary-fixed-dim text-[18px] shrink-0">unfold_more</span></div></div></aside><div class="pl-[216px]"><header class="fixed top-0 left-[216px] right-0 h-16 bg-surface/85 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(18,61,50,0.04)]"><div class="h-16 w-full px-space-lg flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="font-label-md text-label-md text-outline font-semibold uppercase tracking-wider">Panel de Donante</span><span class="text-outline-variant font-label-md text-label-md">/</span><span class="font-label-md text-label-md text-secondary font-semibold">Valle de Aburrá</span></div><div class="flex items-center gap-space-md"><div class="relative cursor-pointer"><span class="material-symbols-outlined text-on-surface-variant hover:text-on-surface transition-colors text-[22px]">notifications</span><span class="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></div><div class="flex items-center gap-space-xs pl-space-xs cursor-pointer"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex items-center gap-1"><span class="font-label-md text-label-md text-on-surface font-semibold">Mi perfil</span><span class="material-symbols-outlined text-on-surface-variant text-[16px]">keyboard_arrow_down</span></div></div></div></div></header><main class="relative pt-16 w-full bg-background min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full max-w-[1360px] mx-auto px-space-md lg:px-space-lg py-space-lg flex flex-col gap-space-lg">
+<!-- ENCABEZADO PRINCIPAL -->
+<header class="flex flex-col md:flex-row md:items-start justify-between gap-space-md pt-2">
+<div class="flex flex-col max-w-3xl">
+<div class="flex items-center gap-2 mb-2">
+<span class="inline-block w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="font-label-sm text-label-sm uppercase tracking-[0.14em] text-outline font-semibold">
+            Red de Rescate Alimentario
+          </span>
+<span class="text-outline-variant font-label-sm text-label-sm">·</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">
+            Valle de Aburrá
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-primary tracking-tight text-balance">
+          Lo que sobra aquí, <span class="text-primary-container inline-block">alimenta allá.</span>
+</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl leading-relaxed">
+          Convierte tus excedentes de hoy en oportunidades para alguien más. Tu próxima donación puede marcar una gran diferencia.
+        </p>
+</div>
+<!-- Chip de Fecha y Selector Rápido -->
+<div class="flex items-center gap-space-xs self-start shrink-0 bg-surface-container-lowest px-3.5 py-2 rounded-xl shadow-[0_2px_8px_rgba(18,61,50,0.04)]">
+<span class="material-symbols-outlined text-[18px] text-primary-container">calendar_today</span>
+<span class="font-label-md text-label-md text-on-surface font-semibold tracking-tight">18 de octubre de 2026</span>
+<span class="w-1.5 h-1.5 rounded-full bg-secondary-fixed-dim ml-1"></span>
+</div>
+</header>
+<!-- TRES INDICADORES / MÉTRICAS HORIZONTALES -->
+<section aria-label="Indicadores de impacto rápido" class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Métrica 1 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex items-center justify-between shadow-[0_2px_12px_rgba(18,61,50,0.03)] hover:shadow-[0_4px_18px_rgba(18,61,50,0.06)] transition-all group cursor-default">
+<div class="flex flex-col gap-1 min-w-0">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-semibold">
+            Excedentes Publicados
+          </span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-metric-display text-metric-display text-primary leading-none group-hover:text-primary-container transition-colors">4</span>
+<span class="font-label-sm text-label-sm font-semibold text-secondary bg-surface-container-high px-2 py-0.5 rounded-full">+1 hoy</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate mt-0.5">
+            Registros en la plataforma
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[24px]">inventory_2</span>
+</div>
+</div>
+<!-- Métrica 2 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex items-center justify-between shadow-[0_2px_12px_rgba(18,61,50,0.03)] hover:shadow-[0_4px_18px_rgba(18,61,50,0.06)] transition-all group cursor-default">
+<div class="flex flex-col gap-1 min-w-0">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-semibold">
+            Alimentos Recuperados
+          </span>
+<div class="flex items-baseline gap-1.5 mt-0.5">
+<span class="font-metric-display text-metric-display text-primary leading-none group-hover:text-primary-container transition-colors">26</span>
+<span class="font-headline-sm text-headline-sm text-on-surface-variant font-bold">kg</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate mt-0.5">
+            Kilogramos registrados como entregados
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[24px]">scale</span>
+</div>
+</div>
+<!-- Métrica 3 -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md flex items-center justify-between shadow-[0_2px_12px_rgba(18,61,50,0.03)] hover:shadow-[0_4px_18px_rgba(18,61,50,0.06)] transition-all group cursor-default">
+<div class="flex flex-col gap-1 min-w-0">
+<span class="font-label-md text-label-md uppercase tracking-wider text-outline font-semibold">
+            Donaciones Entregadas
+          </span>
+<div class="flex items-baseline gap-2 mt-0.5">
+<span class="font-metric-display text-metric-display text-primary leading-none group-hover:text-primary-container transition-colors">1</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary-container bg-surface-container-high px-2 py-0.5 rounded-full">100% efectividad</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate mt-0.5">
+            Excedentes que llegaron a su destino
+          </span>
+</div>
+<div class="w-12 h-12 rounded-xl bg-secondary-container/40 flex items-center justify-center shrink-0 text-primary-container">
+<span class="material-symbols-outlined text-[24px]">local_shipping</span>
+</div>
+</div>
+</section>
+<!-- DISPOSICIÓN PRINCIPAL A DOS COLUMNAS -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Columna Izquierda: TABLA DE ACTIVIDAD RECIENTE (~68-70%) -->
+<div class="lg:col-span-8 flex flex-col bg-surface-container-lowest rounded-2xl shadow-[0_2px_16px_rgba(18,61,50,0.03)] overflow-hidden">
+<!-- Header de la tarjeta -->
+<div class="px-space-lg py-space-md bg-surface-container-lowest flex items-center justify-between">
+<div class="flex flex-col">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="font-label-md text-label-md uppercase tracking-widest text-outline font-bold">
+                Actividad Reciente
+              </span>
+</div>
+<h2 class="font-title-md text-title-md text-primary mt-0.5">
+              Sigue el recorrido de tus excedentes
+            </h2>
+</div>
+<button class="group flex items-center gap-1 font-label-lg text-label-lg text-primary-container hover:text-secondary font-semibold transition-colors py-1 px-2.5 rounded-lg hover:bg-surface-container" type="button">
+<span class="">Ver todos</span>
+<span class="transition-transform group-hover:translate-x-1 font-bold">→</span>
+</button>
+</div>
+<!-- Tabla Responsive -->
+<div class="w-full overflow-x-auto">
+<table class="w-full text-left text-body-sm font-body-sm">
+<thead class="bg-surface-container-low text-outline font-label-md text-label-md uppercase tracking-wider">
+<tr>
+<th class="py-3 px-space-md lg:px-space-lg font-semibold" scope="col">Alimento / Donante</th>
+<th class="py-3 px-space-md font-semibold hidden sm:table-cell" scope="col">Categoría</th>
+<th class="py-3 px-space-md font-semibold hidden md:table-cell" scope="col">Ubicación</th>
+<th class="py-3 px-space-md font-semibold text-center sm:text-left" scope="col">Estado</th>
+<th class="py-3 px-space-md lg:px-space-lg font-semibold text-right" scope="col">Cantidad</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Fila 1 -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="py-space-md px-space-md lg:px-space-lg">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 group-hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[19px]">rice_bowl</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-body-md text-on-surface font-semibold truncate group-hover:text-primary transition-colors">
+                        Arroz chaufa y vegetales salteados
+                      </span>
+<span class="font-body-sm text-body-sm text-outline truncate flex items-center gap-1">
+                        Provenza Bistro &amp; Café
+                        <span class="sm:hidden text-outline-variant">· Cereales</span>
+</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md hidden sm:table-cell">
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-md">
+                    Cereales y preparados
+                  </span>
+</td>
+<td class="py-space-md px-space-md hidden md:table-cell">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span class="">El Poblado, Medellín</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center sm:text-left">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-amber-50 text-amber-800">
+<span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    En Ruta
+                  </span>
+</td>
+<td class="py-space-md px-space-md lg:px-space-lg text-right">
+<span class="font-title-md text-body-md text-primary font-bold tracking-tight">14,5 kg</span>
+</td>
+</tr>
+<!-- Fila 2 -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-md lg:px-space-lg">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 group-hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[19px]">bakery_dining</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-body-md text-on-surface font-semibold truncate group-hover:text-primary transition-colors">
+                        Pan de masa madre y croissants
+                      </span>
+<span class="font-body-sm text-body-sm text-outline truncate flex items-center gap-1">
+                        Panadería Artesanal Laureles
+                        <span class="sm:hidden text-outline-variant">· Panadería</span>
+</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md hidden sm:table-cell">
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-md">
+                    Panadería
+                  </span>
+</td>
+<td class="py-space-md px-space-md hidden md:table-cell">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span class="">Laureles, Medellín</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center sm:text-left">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-primary-fixed/50 text-on-primary-fixed-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                    Asignado
+                  </span>
+</td>
+<td class="py-space-md px-space-md lg:px-space-lg text-right">
+<span class="font-title-md text-body-md text-primary font-bold tracking-tight">8,2 kg</span>
+</td>
+</tr>
+<!-- Fila 3 -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group">
+<td class="py-space-md px-space-md lg:px-space-lg">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 group-hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[19px]">dinner_dining</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-body-md text-on-surface font-semibold truncate group-hover:text-primary transition-colors">
+                        Bandejas de proteína y ensalada
+                      </span>
+<span class="font-body-sm text-body-sm text-outline truncate flex items-center gap-1">
+                        Hotel Parque Envigado
+                        <span class="sm:hidden text-outline-variant">· Proteínas</span>
+</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md hidden sm:table-cell">
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-md">
+                    Proteínas
+                  </span>
+</td>
+<td class="py-space-md px-space-md hidden md:table-cell">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span class="">Envigado, Antioquia</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center sm:text-left">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-surface-container-highest text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                    Publicado
+                  </span>
+</td>
+<td class="py-space-md px-space-md lg:px-space-lg text-right">
+<span class="font-title-md text-body-md text-primary font-bold tracking-tight">19 kg</span>
+</td>
+</tr>
+<!-- Fila 4 -->
+<tr class="hover:bg-surface-container-low/70 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-md lg:px-space-lg">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-primary shrink-0 group-hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-[19px]">nutrition</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-title-md text-body-md text-on-surface font-semibold truncate group-hover:text-primary transition-colors">
+                        Tomate, aguacate y plátano
+                      </span>
+<span class="font-body-sm text-body-sm text-outline truncate flex items-center gap-1">
+                        Mercado Orgánico Sabaneta
+                        <span class="sm:hidden text-outline-variant">· Frutas</span>
+</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md hidden sm:table-cell">
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-2.5 py-1 rounded-md">
+                    Frutas y verduras
+                  </span>
+</td>
+<td class="py-space-md px-space-md hidden md:table-cell">
+<div class="flex items-center gap-1 text-on-surface-variant font-body-sm">
+<span class="material-symbols-outlined text-[15px] text-outline">location_on</span>
+<span class="">Sabaneta, Antioquia</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center sm:text-left">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-label-sm font-label-sm font-semibold bg-secondary-container/70 text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                    Entregado
+                  </span>
+</td>
+<td class="py-space-md px-space-md lg:px-space-lg text-right">
+<span class="font-title-md text-body-md text-primary font-bold tracking-tight">26 kg</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Barra inferior sutil de estado de sincronización -->
+<div class="px-space-lg py-3 bg-surface-container-low flex flex-col sm:flex-row items-center justify-between text-label-sm font-label-sm text-outline gap-2">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="">Canal logístico Aburrá Sur y Medellín activo</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Mostrando 4 de 4 registros recientes</span>
+</div>
+</div>
+<!-- Columna Derecha: DOS MÓDULOS VERTICALES (~30-32%) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg">
+<!-- Módulo 1: Banner de Publicación Rápida (Verde Lima) -->
+<div class="relative overflow-hidden bg-secondary-container text-on-secondary-fixed rounded-2xl p-space-lg shadow-[0_4px_20px_rgba(213,238,118,0.25)] flex flex-col justify-between">
+<!-- Elemento decorativo vectorial orgánico bucle/hoja -->
+<div class="absolute -right-8 -bottom-10 w-44 h-44 opacity-25 pointer-events-none select-none text-tertiary">
+<svg class="w-full h-full stroke-current" fill="none" stroke-linecap="round" stroke-width="5" viewBox="0 0 100 100">
+<path d="M 20,80 C 15,40 45,15 80,20 C 85,55 55,85 20,80 Z" fill="currentColor" fill-opacity="0.15"></path>
+<path d="M 30,70 Q 50,50 75,25"></path>
+<circle cx="75" cy="25" fill="currentColor" r="4"></circle>
+<circle cx="28" cy="72" fill="currentColor" r="3"></circle>
+</svg>
+</div>
+<div class="flex flex-col gap-2 relative z-10">
+<div class="flex items-center gap-1.5 text-primary-container">
+<span class="material-symbols-outlined text-[16px]">eco</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-[0.14em]">
+                Una segunda oportunidad
+              </span>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-primary leading-tight mt-1">
+              Tu generosidad alimenta el cambio.
+            </h3>
+<p class="font-body-md text-body-md text-primary-container/90 mt-1 leading-snug">
+              Publica alimentos que aún pueden aprovecharse y conecta tus excedentes con organizaciones cercanas.
+            </p>
+</div>
+<div class="mt-space-lg relative z-10">
+<button class="w-full h-12 bg-primary-container hover:bg-[#1a5546] text-on-primary rounded-xl font-label-lg text-label-lg font-semibold flex items-center justify-center gap-2 shadow-[0_4px_12px_rgba(18,61,50,0.15)] active:scale-[0.99] transition-all" type="button">
+<span class="">Publicar excedente</span>
+<span class="font-bold text-[18px]">↗</span>
+</button>
+</div>
+</div>
+<!-- Módulo 2: Tu Impacto (Blanco con Anillo SVG y Hoja) -->
+<div class="bg-surface-container-lowest rounded-2xl p-space-lg shadow-[0_2px_16px_rgba(18,61,50,0.03)] flex flex-col items-center text-center">
+<div class="w-full flex items-center justify-between pb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-bold">
+              Tu Impacto
+            </span>
+<span class="material-symbols-outlined text-secondary text-[20px]">verified</span>
+</div>
+<!-- Composición central de Anillo de Progreso SVG -->
+<div class="relative w-44 h-44 my-space-sm flex items-center justify-center">
+<!-- SVG Circular Gauge -->
+<svg class="w-full h-full -rotate-90 transform" viewBox="0 0 120 120">
+<!-- Fondo del track -->
+<circle class="text-surface-container" cx="60" cy="60" fill="transparent" r="48" stroke="currentColor" stroke-width="9"></circle>
+<!-- Arco con progreso actual (26kg / meta 50kg = 52%) -->
+<circle class="text-primary-container" cx="60" cy="60" fill="transparent" r="48" stroke="currentColor" stroke-dasharray="301.59" stroke-dashoffset="144" stroke-linecap="round" stroke-width="9"></circle>
+<!-- Acento lima al final del arco -->
+<circle class="text-secondary-fixed-dim" cx="60" cy="60" fill="transparent" r="48" stroke="currentColor" stroke-dasharray="301.59" stroke-dashoffset="270" stroke-linecap="round" stroke-width="9"></circle>
+</svg>
+<!-- Contenido Central del Anillo -->
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<div class="w-7 h-7 rounded-full bg-secondary-container/60 flex items-center justify-center text-primary-container mb-0.5">
+<span class="material-symbols-outlined text-[16px]">energy_savings_leaf</span>
+</div>
+<span class="font-headline-md text-headline-md text-primary font-bold leading-none">26</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-outline font-semibold">kg</span>
+</div>
+</div>
+<p class="font-title-md text-body-md text-on-surface font-medium max-w-[210px] leading-snug">
+            de alimentos entregados a organizaciones
+          </p>
+<!-- Badges de equivalencia ecológica / social -->
+<div class="w-full grid grid-cols-2 gap-2 mt-space-md pt-space-sm bg-surface-container-low p-space-xs rounded-xl">
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-lowest">
+<span class="font-title-md text-title-md text-primary font-bold">~65</span>
+<span class="font-label-sm text-label-sm text-outline">Raciones servidas</span>
+</div>
+<div class="flex flex-col items-center justify-center p-2 rounded-lg bg-surface-container-lowest">
+<span class="font-title-md text-title-md text-secondary font-bold">58 kg</span>
+<span class="font-label-sm text-label-sm text-outline">CO₂ evitado</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div></main></div>
+
+
+
+</body></html>

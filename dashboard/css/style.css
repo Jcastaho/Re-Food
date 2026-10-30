@@ -1,0 +1,109 @@
+/* style.css - Base styling for Re-Food dashboard */
+
+:root {
+  --primary-h: 210;
+  --primary-s: 40%;
+  --primary-l: 20%;
+  --bg-h: 210;
+  --bg-s: 30%;
+  --bg-l: 10%;
+  --accent-h: 170;
+  --accent-s: 45%;
+  --accent-l: 45%;
+  --text-color: hsl(0, 0%, 95%);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-blur: 10px;
+  --radius: 12px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  background: hsl(var(--bg-h), var(--bg-s), var(--bg-l));
+  color: var(--text-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem;
+}
+
+#app {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-template-rows: auto 1fr;
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.header {
+  grid-column: 1 / -1;
+  padding: 1rem 2rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(var(--card-blur));
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.sidebar {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--card-blur));
+  border-radius: var(--radius);
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin: 0.5rem 0;
+}
+
+.sidebar a {
+  color: var(--text-color);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.main {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--card-blur));
+  border-radius: var(--radius);
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.screen {
+  display: none;
+}
+
+.screen.active {
+  display: block;
+}
+
+/* Simple responsive tweak */
+@media (max-width: 768px) {
+  #app {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    grid-row: 2;
+    height: auto;
+  }
+}
