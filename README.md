@@ -1,5 +1,7 @@
 # 🌱 Re-Food | Red Metropolitana de Rescate Alimentario (Valle de Aburrá)
 
+URL: https://jcastaho.github.io/Re-Food/
+
 > **"Lo que sobra aquí, alimenta allá."**  
 > Plataforma tecnológica para conectar excedentes alimentarios de hoteles, restaurantes y panaderías con bancos de alimentos y comedores comunitarios en Medellín y el Valle de Aburrá.
 
@@ -32,12 +34,12 @@ Puedes acceder a la versión desplegada en vivo a través del siguiente enlace u
    - Almacenamiento reactivo local que actualiza de inmediato el dashboard.
 
 3. **Gestión de Inventario (`#mis-excedentes`):**
-   - Listado completo de lotes con filtros por estado: *Todos*, *En Ruta*, *Asignados*, *Entregados*.
+   - Listado completo de lotes con filtros por estado: _Todos_, _En Ruta_, _Asignados_, _Entregados_.
    - Buscador por nombre de alimento o código de lote.
 
 4. **Calculadora Interactiva de Inocuidad y Vida Útil (`#calculadora`):**
    - Algoritmo térmico basado en la Resolución 2674 de 2013 y normatividad INVIMA.
-   - Deslizadores en tiempo real para evaluar zonas de peligro térmico y semáforo bacteriológico (*Seguro*, *Precaución*, *Riesgo Crítico*).
+   - Deslizadores en tiempo real para evaluar zonas de peligro térmico y semáforo bacteriológico (_Seguro_, _Precaución_, _Riesgo Crítico_).
 
 5. **Directorio y Trazabilidad Logística:**
    - **Organizaciones Receptoras (`#organizaciones`):** Catálogo de ONGs y comedores auditados.
@@ -47,7 +49,7 @@ Puedes acceder a la versión desplegada en vivo a través del siguiente enlace u
 
 6. **Pantalla de Inicio de Sesión (`#login`):**
    - Diseño editorial completo dividido en área informativa e interfaz de acceso.
-   - **Acceso demostrativo:** Permite ingresar con cualquier correo/contraseña o directamente dando clic en el botón *"Iniciar Sesión"* o *"Entrar directamente sin credenciales"*.
+   - **Acceso demostrativo:** Permite ingresar con cualquier correo/contraseña o directamente dando clic en el botón _"Iniciar Sesión"_ o _"Entrar directamente sin credenciales"_.
 
 ---
 
@@ -90,14 +92,18 @@ Re-Food/
 ## 💻 Cómo Ejecutar en Local
 
 ### Opción 1: Con Node.js (Recomendado)
+
 No requiere instalación de librerías (`npm install` no es necesario).
+
 ```bash
 # Iniciar servidor nativo en el puerto 8000
 node server.js
 ```
+
 Abre tu navegador en: **`http://localhost:8000`**
 
 ### Opción 2: Cualquier Servidor Estático
+
 ```bash
 # Con npx serve
 npx serve . -p 8000
@@ -128,4 +134,5 @@ python -m http.server 8000
 ---
 
 ## 👥 Créditos y Licencia
+
 Desarrollado para la iniciativa **Re-Food Valle de Aburrá / Medellín**. Código bajo licencia MIT.
