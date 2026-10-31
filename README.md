@@ -1,7 +1,5 @@
 # 🌱 Re-Food | Red Metropolitana de Rescate Alimentario (Valle de Aburrá)
 
-URL: https://jcastaho.github.io/Re-Food/
-
 > **"Lo que sobra aquí, alimenta allá."**  
 > Plataforma tecnológica para conectar excedentes alimentarios de hoteles, restaurantes y panaderías con bancos de alimentos y comedores comunitarios en Medellín y el Valle de Aburrá.
 
@@ -16,7 +14,7 @@ URL: https://jcastaho.github.io/Re-Food/
 ## 🚀 Demo en Vivo en GitHub Pages
 
 Puedes acceder a la versión desplegada en vivo a través del siguiente enlace una vez habilitado el servicio:
-👉 **`https://<tu-usuario-de-github>.github.io/Re-Food/`**
+👉 **`URL: https://jcastaho.github.io/Re-Food/`**
 
 ---
 
@@ -113,26 +111,3 @@ python -m http.server 8000
 ```
 
 ---
-
-## 🌐 Cómo Activar GitHub Pages Paso a Paso
-
-1. Sube los cambios a tu repositorio de GitHub:
-   ```bash
-   git add .
-   git commit -m "feat: complete Re-Food dashboard with Clean Architecture and GitHub Pages support"
-   git push origin main
-   ```
-2. En GitHub, ve a la pestaña **Settings** (Configuración) de tu repositorio.
-3. En el menú lateral izquierdo, haz clic en **Pages**.
-4. En la sección **Build and deployment**:
-   - **Source:** Selecciona `Deploy from a branch`.
-   - **Branch:** Selecciona `main` (o `master`) y la carpeta `/ (root)`.
-   - Haz clic en **Save** (Guardar).
-5. Espera 1 minuto y GitHub Pages te mostrará tu enlace oficial:
-   `https://<tu-usuario>.github.io/Re-Food/`
-
----
-
-## 👥 Créditos y Licencia
-
-Desarrollado para la iniciativa **Re-Food Valle de Aburrá / Medellín**. Código bajo licencia MIT.
