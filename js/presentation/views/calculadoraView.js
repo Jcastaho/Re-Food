@@ -115,8 +115,8 @@ export function renderCalculadora() {
             El alimento se encuentra dentro de parámetros térmicos estables. Proceder con empaque hermético y despacho inmediato hacia la fundación asignada.
           </p>
 
-          <button onclick="window.navigate('publicar')" class="w-full py-3 bg-[#00261e] hover:bg-[#123d32] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md">
-            <span>Publicar este lote con estos parámetros</span>
+          <button type="button" onclick="window.donarDesdeCalculadora()" class="w-full py-3 bg-[#00261e] hover:bg-[#123d32] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all shadow-md">
+            <span>Donar este excedente con estos parámetros</span>
             <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
           </button>
         </div>
@@ -205,3 +205,17 @@ function recalcular() {
     dictamen.textContent = res.mensaje;
   }
 }
+
+window.donarDesdeCalculadora = function() {
+  let tempLabel = 'Ambiente (20°C)';
+  if (currentTemp > 50) tempLabel = 'En caliente (>60°C)';
+  else if (currentTemp <= 5 && currentTemp > -10) tempLabel = 'Refrigerado (4°C)';
+  else if (currentTemp <= -10) tempLabel = 'Congelado (-18°C)';
+
+  const params = new URLSearchParams({
+    categoria: currentTipo,
+    temp: tempLabel
+  });
+
+  window.navigate(`publicar?${params.toString()}`);
+};

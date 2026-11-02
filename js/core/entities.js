@@ -3,6 +3,8 @@
  * Representa los modelos fundamentales del negocio Re-Food
  */
 
+import { getDefaultImageForCategory } from './imageCompressor.js';
+
 export class Excedente {
   constructor({
     id,
@@ -13,19 +15,33 @@ export class Excedente {
     cantidadKg,
     estado = 'Publicado', // 'Publicado' | 'Asignado' | 'En Ruta' | 'Entregado'
     caducidadHoras = 12,
-    temperatura = 'Ambiente',
-    fechaPublicacion = new Date().toISOString()
+    temperatura = 'Ambiente (20°C)',
+    horaLimite = '18:30',
+    notas = '',
+    imagenUrl = '',
+    organizacionDestino = 'Asignando ruta...',
+    fechaPublicacion = null
   }) {
-    this.id = id || `EXC-${Math.floor(1000 + Math.random() * 9000)}`;
+    this.id = id || `RF-${Math.floor(1000 + Math.random() * 9000)}`;
     this.nombre = nombre;
-    this.categoria = categoria;
+    this.categoria = categoria || 'Cereales y preparados';
     this.establecimiento = establecimiento;
     this.ubicacion = ubicacion;
     this.cantidadKg = parseFloat(cantidadKg) || 0;
     this.estado = estado;
     this.caducidadHoras = caducidadHoras;
     this.temperatura = temperatura;
-    this.fechaPublicacion = fechaPublicacion;
+    this.horaLimite = horaLimite;
+    this.notas = notas;
+    this.imagenUrl = imagenUrl || getDefaultImageForCategory(this.categoria);
+    this.organizacionDestino = organizacionDestino;
+    this.fechaPublicacion = fechaPublicacion || new Date().toLocaleString('es-CO', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   }
 }
 

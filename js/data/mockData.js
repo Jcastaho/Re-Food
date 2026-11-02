@@ -12,7 +12,10 @@ export const INITIAL_EXCEDENTES = [
     cantidadKg: 14.5,
     estado: "En Ruta", // 'Publicado' | 'Asignado' | 'En Ruta' | 'Entregado'
     caducidadHoras: 6,
-    temperatura: "En caliente (62°C)",
+    temperatura: "En caliente (>60°C)",
+    horaLimite: "16:00",
+    notas: "Empacado en bandejas térmicas de aluminio selladas.",
+    imagenUrl: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80",
     organizacionDestino: "Banco de Alimentos de Medellín",
     fechaPublicacion: "18 de octubre de 2026, 14:30"
   },
@@ -20,12 +23,15 @@ export const INITIAL_EXCEDENTES = [
     id: "RF-8491",
     nombre: "Pan de masa madre y croissants",
     establecimiento: "Panadería Artesanal Laureles",
-    categoria: "Panadería",
+    categoria: "Panadería y secos",
     ubicacion: "Laureles, Medellín",
     cantidadKg: 8.2,
     estado: "Asignado",
     caducidadHoras: 24,
-    temperatura: "Ambiente (21°C)",
+    temperatura: "Ambiente (20°C)",
+    horaLimite: "18:00",
+    notas: "Horneado del día, empacado en bolsas de papel kraft.",
+    imagenUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
     organizacionDestino: "Fundación Saciar Calle 30",
     fechaPublicacion: "18 de octubre de 2026, 11:15"
   },
@@ -33,12 +39,15 @@ export const INITIAL_EXCEDENTES = [
     id: "RF-8488",
     nombre: "Bandejas de proteína y ensalada",
     establecimiento: "Hotel Parque Envigado",
-    categoria: "Proteínas",
+    categoria: "Proteínas cocidas",
     ubicacion: "Envigado, Antioquia",
     cantidadKg: 19.0,
     estado: "Publicado",
     caducidadHoras: 8,
     temperatura: "Refrigerado (4°C)",
+    horaLimite: "19:30",
+    notas: "Almacenado a 4°C en cámara frigorífica. Listo para transporte isotérmico.",
+    imagenUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
     organizacionDestino: "En proceso de match",
     fechaPublicacion: "18 de octubre de 2026, 10:00"
   },
@@ -51,7 +60,10 @@ export const INITIAL_EXCEDENTES = [
     cantidadKg: 26.0,
     estado: "Entregado",
     caducidadHoras: 48,
-    temperatura: "Fresco (16°C)",
+    temperatura: "Ambiente (20°C)",
+    horaLimite: "15:00",
+    notas: "Canastillas limpias de plástico de alta densidad.",
+    imagenUrl: "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=600&q=80",
     organizacionDestino: "Comedor Comunitario Santo Domingo",
     fechaPublicacion: "17 de octubre de 2026, 16:45"
   }
@@ -113,6 +125,34 @@ export const INITIAL_ORGANIZACIONES = [
     estadoVerificacion: "Verificada",
     telefono: "+57 310 492 8119",
     descripcion: "Distribución directa de almuerzos comunitarios diarios en la zona nororiental."
+  },
+  {
+    id: "ORG-05",
+    nombre: "Hogar San Vicente de Paúl",
+    tipo: "Hogar de Paso y Nutrición",
+    direccion: "Calle 38 Sur # 43A-19, Parque Principal",
+    municipio: "Envigado",
+    capacidadKgDia: 180,
+    beneficiarios: 220,
+    distanciaKm: 6.2,
+    certificacion: "Verificación Municipal",
+    estadoVerificacion: "Verificada",
+    telefono: "+57 (604) 331 4455",
+    descripcion: "Atención alimentaria a adultos mayores y familias vulnerables del sur del Valle de Aburrá."
+  },
+  {
+    id: "ORG-06",
+    nombre: "Comedor del Norte La Gabriela",
+    tipo: "Comedor Comunitario",
+    direccion: "Diagonal 52 # 14-30, La Gabriela",
+    municipio: "Bello",
+    capacidadKgDia: 310,
+    beneficiarios: 450,
+    distanciaKm: 12.8,
+    certificacion: "Alianza Red Valle de Aburrá",
+    estadoVerificacion: "Verificada",
+    telefono: "+57 (604) 451 9020",
+    descripcion: "Nodo de recepción rápida para excedentes de panadería y frutas en el norte metropolitano."
   }
 ];
 

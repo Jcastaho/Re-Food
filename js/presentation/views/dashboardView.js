@@ -162,18 +162,21 @@ export function renderDashboard() {
                 else if (item.categoria.includes('Prote')) icon = 'dinner_dining';
 
                 return `
-                <tr class="hover:bg-[#fafaf3] transition-colors group cursor-pointer" onclick="window.navigate('detalle-donacion')">
+                <tr class="hover:bg-[#fafaf3] transition-colors group cursor-pointer" onclick="window.navigate('detalle-donacion?id=${item.id}')">
                   <td class="py-3.5 px-6">
                     <div class="flex items-center gap-3">
-                      <div class="w-9 h-9 rounded-lg bg-[#eeeee7] flex items-center justify-center text-[#00261e] shrink-0 group-hover:bg-[#d5ee76]/40 transition-colors">
-                        <span class="material-symbols-outlined text-[19px]">${icon}</span>
+                      <div class="w-10 h-10 rounded-xl overflow-hidden bg-[#eeeee7] flex items-center justify-center text-[#00261e] shrink-0 border border-[#e8e9e2] shadow-xs">
+                        ${item.imagenUrl 
+                          ? `<img src="${item.imagenUrl}" alt="${item.nombre}" class="w-full h-full object-cover" />` 
+                          : `<span class="material-symbols-outlined text-[19px]">${icon}</span>`
+                        }
                       </div>
                       <div class="flex flex-col min-w-0">
                         <span class="font-semibold text-sm text-[#1a1c18] truncate group-hover:text-[#123d32] transition-colors">
                           ${item.nombre}
                         </span>
                         <span class="text-xs text-[#717975] truncate">
-                          ${item.establecimiento}
+                          ${item.establecimiento} · <span class="font-mono">${item.id}</span>
                         </span>
                       </div>
                     </div>

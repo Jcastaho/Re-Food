@@ -1,16 +1,17 @@
 /**
  * Data Repository - Clean Architecture
  * Proporciona métodos agnósticos para consultar y persistir entidades
- * Seguro para entornos de navegador y testing
+ * Seguro para entornos de navegador y testing con persistencia en LocalStorage
  */
 
 import { INITIAL_EXCEDENTES, INITIAL_ORGANIZACIONES, INITIAL_NOTIFICACIONES } from './mockData.js';
 import { Excedente } from '../core/entities.js';
+import { getDefaultImageForCategory } from '../core/imageCompressor.js';
 
 class DataRepository {
   constructor() {
-    this.STORAGE_KEY_EXCEDENTES = 'refood_excedentes_v1';
-    this.STORAGE_KEY_NOTIFS = 'refood_notificaciones_v1';
+    this.STORAGE_KEY_EXCEDENTES = 'refood_excedentes_v2';
+    this.STORAGE_KEY_NOTIFS = 'refood_notificaciones_v2';
     this._memoryExcedentes = [...INITIAL_EXCEDENTES];
     this._memoryNotifs = [...INITIAL_NOTIFICACIONES];
     this._initStorage();
@@ -23,9 +24,25 @@ class DataRepository {
   _initStorage() {
     if (!this._isStorageAvailable()) return;
     try {
-      if (!localStorage.getItem(this.STORAGE_KEY_EXCEDENTES)) {
+      const stored = localStorage.getItem(this.STORAGE_KEY_EXCEDENTES);
+      if (!stored) {
         localStorage.setItem(this.STORAGE_KEY_EXCEDENTES, JSON.stringify(INITIAL_EXCEDENTES));
+      } else {
+        // Asegurar que elementos antiguos tengan fotos y campos completos
+        const parsed = JSON.parse(stored);
+        let modificado = false;
+        const actualizados = parsed.map(item => {
+          if (!item.imagenUrl) {
+            item.imagenUrl = getDefaultImageForCategory(item.categoria);
+            modificado = true;
+          }
+          return item;
+        });
+        if (modificado) {
+          localStorage.setItem(this.STORAGE_KEY_EXCEDENTES, JSON.stringify(actualizados));
+        }
       }
+
       if (!localStorage.getItem(this.STORAGE_KEY_NOTIFS)) {
         localStorage.setItem(this.STORAGE_KEY_NOTIFS, JSON.stringify(INITIAL_NOTIFICACIONES));
       }
@@ -34,11 +51,30 @@ class DataRepository {
     }
   }
 
+  _saveExcedentes(list) {
+    if (this._isStorageAvailable()) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY_EXCEDENTES, JSON.stringify(list));
+      } catch (err) {
+        console.warn('No se pudo guardar en LocalStorage, manteniendo en memoria:', err);
+        this._memoryExcedentes = list;
+      }
+    } else {
+      this._memoryExcedentes = list;
+    }
+  }
+
   getExcedentes() {
     if (!this._isStorageAvailable()) return this._memoryExcedentes;
     try {
       const raw = localStorage.getItem(this.STORAGE_KEY_EXCEDENTES);
-      return raw ? JSON.parse(raw) : this._memoryExcedentes;
+      if (!raw) return this._memoryExcedentes;
+      const parsed = JSON.parse(raw);
+      // Garantizar que todos tengan imagenUrl
+      return parsed.map(item => ({
+        ...item,
+        imagenUrl: item.imagenUrl || getDefaultImageForCategory(item.categoria)
+      }));
     } catch {
       return this._memoryExcedentes;
     }
@@ -46,36 +82,75 @@ class DataRepository {
 
   getExcedenteById(id) {
     const list = this.getExcedentes();
-    return list.find(item => item.id === id) || list[0];
+    return list.find(item => item.id === id) || null;
   }
 
   addExcedente(data) {
     const nuevo = new Excedente(data);
     const list = this.getExcedentes();
-    const itemGuardado = {
-      ...nuevo,
-      organizacionDestino: 'Asignando ruta...'
-    };
-    list.unshift(itemGuardado);
-
-    if (this._isStorageAvailable()) {
-      try {
-        localStorage.setItem(this.STORAGE_KEY_EXCEDENTES, JSON.stringify(list));
-      } catch {
-        this._memoryExcedentes = list;
-      }
-    } else {
-      this._memoryExcedentes = list;
-    }
+    list.unshift(nuevo);
+    this._saveExcedentes(list);
 
     this.addNotificacion({
-      titulo: `Excedente ${nuevo.nombre} publicado`,
-      detalle: `${nuevo.cantidadKg} kg registrados exitosamente en el sistema de rescate.`,
+      titulo: `Excedente publicado`,
+      detalle: `${nuevo.nombre} (${nuevo.cantidadKg} kg) registrado en la red de rescate.`,
       hora: 'Hace un momento',
       tipo: 'check'
     });
 
     return nuevo;
+  }
+
+  updateExcedente(id, updateData) {
+    const list = this.getExcedentes();
+    const index = list.findIndex(item => item.id === id);
+    if (index === -1) {
+      throw new Error(`Excedente con ID ${id} no encontrado.`);
+    }
+
+    const anterior = list[index];
+    const actualizado = {
+      ...anterior,
+      ...updateData,
+      id: anterior.id, // ID inmutable
+      cantidadKg: updateData.cantidadKg !== undefined ? parseFloat(updateData.cantidadKg) : anterior.cantidadKg,
+      imagenUrl: updateData.imagenUrl || anterior.imagenUrl || getDefaultImageForCategory(updateData.categoria || anterior.categoria),
+      fechaActualizacion: new Date().toLocaleTimeString('es-CO', { hour: '2-digit', minute: '2-digit' })
+    };
+
+    list[index] = actualizado;
+    this._saveExcedentes(list);
+
+    this.addNotificacion({
+      titulo: `Lote actualizado`,
+      detalle: `${actualizado.nombre} modificado exitosamente.`,
+      hora: 'Hace un momento',
+      tipo: 'info'
+    });
+
+    return actualizado;
+  }
+
+  deleteExcedente(id) {
+    const list = this.getExcedentes();
+    const itemABorrar = list.find(item => item.id === id);
+    if (!itemABorrar) return false;
+
+    const filtrados = list.filter(item => item.id !== id);
+    this._saveExcedentes(filtrados);
+
+    this.addNotificacion({
+      titulo: `Excedente eliminado`,
+      detalle: `El lote ${itemABorrar.nombre} (${itemABorrar.id}) fue retirado del sistema.`,
+      hora: 'Hace un momento',
+      tipo: 'warning'
+    });
+
+    return true;
+  }
+
+  updateEstadoExcedente(id, nuevoEstado) {
+    return this.updateExcedente(id, { estado: nuevoEstado });
   }
 
   getOrganizaciones() {

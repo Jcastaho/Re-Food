@@ -615,8 +615,16 @@ export function renderRutaLogistica() {
 }
 
 // 5. DETALLE DE DONACIÓN RF-8492
-export function renderDetalleDonacion() {
-  const item = repository.getExcedenteById('RF-8492');
+export function renderDetalleDonacion(params) {
+  const targetId = (params && typeof params.get === 'function') ? params.get('id') : null;
+  const item = (targetId && repository.getExcedenteById(targetId)) || repository.getExcedentes()[0];
+  const raciones = Math.round((parseFloat(item.cantidadKg) || 0) * 2.5);
+
+  let badge = 'bg-gray-100 text-gray-700';
+  if (item.estado === 'Publicado') badge = 'bg-blue-50 text-blue-800 border border-blue-200';
+  else if (item.estado === 'En Ruta') badge = 'bg-amber-50 text-amber-800 border border-amber-200';
+  else if (item.estado === 'Asignado') badge = 'bg-emerald-50 text-emerald-800 border border-emerald-200';
+  else if (item.estado === 'Entregado') badge = 'bg-[#d5ee76]/50 text-[#171e00] border border-[#b9d15d]';
 
   return `
   <div class="max-w-[1440px] w-full mx-auto px-space-md lg:px-space-lg py-space-md flex flex-col gap-6">
@@ -628,31 +636,44 @@ export function renderDetalleDonacion() {
     </div>
 
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-      <div>
-        <div class="flex items-center gap-2 mb-1">
-          <span class="text-xs font-mono font-bold bg-[#eeeee7] text-[#123d32] px-2.5 py-0.5 rounded">${item.id}</span>
-          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-800 border border-amber-200">${item.estado}</span>
+      <div class="flex items-start gap-4">
+        ${item.imagenUrl ? `
+        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden bg-gray-100 shrink-0 border border-[#e8e9e2] shadow-sm">
+          <img src="${item.imagenUrl}" alt="${item.nombre}" class="w-full h-full object-cover" />
         </div>
-        <h1 class="text-3xl font-extrabold text-[#00261e] tracking-tight">${item.nombre}</h1>
-        <p class="text-sm text-[#414845] mt-1">Donado por ${item.establecimiento} para ${item.organizacionDestino || 'Banco de Alimentos'}.</p>
+        ` : ''}
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-mono font-bold bg-[#eeeee7] text-[#123d32] px-2.5 py-0.5 rounded">${item.id}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold ${badge}">${item.estado}</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#00261e] tracking-tight">${item.nombre}</h1>
+          <p class="text-sm text-[#414845] mt-1">Donado por ${item.establecimiento} para ${item.organizacionDestino || 'Banco de Alimentos'}.</p>
+        </div>
       </div>
 
-      <button onclick="window.navigate('ruta-logistica')" class="self-start sm:self-auto px-5 py-2.5 bg-[#00261e] hover:bg-[#123d32] text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-md">
-        <span class="material-symbols-outlined text-[18px]">navigation</span>
-        <span>Rastrear Ruta en Vivo</span>
-      </button>
+      <div class="flex items-center gap-2 flex-wrap">
+        <button onclick="window.navigate('publicar?edit=${item.id}')" class="px-4 py-2.5 bg-white border border-[#c0c8c4] hover:bg-[#fafaf3] text-[#1a1c18] rounded-xl text-xs font-semibold flex items-center gap-1.5 shadow-xs">
+          <span class="material-symbols-outlined text-[16px]">edit</span>
+          <span>Editar Lote</span>
+        </button>
+        <button onclick="window.navigate('ruta-logistica')" class="px-5 py-2.5 bg-[#00261e] hover:bg-[#123d32] text-white rounded-xl text-xs font-semibold flex items-center gap-2 shadow-md">
+          <span class="material-symbols-outlined text-[18px]">navigation</span>
+          <span>Rastrear Ruta en Vivo</span>
+        </button>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-white p-6 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col gap-2">
         <span class="text-xs font-bold uppercase text-[#717975]">Cantidad</span>
         <span class="text-3xl font-extrabold text-[#00261e]">${item.cantidadKg} kg</span>
-        <span class="text-xs text-[#546500]">Aproximadamente 36 raciones</span>
+        <span class="text-xs text-[#546500]">Aproximadamente ${raciones} raciones nutricionales</span>
       </div>
       <div class="bg-white p-6 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col gap-2">
         <span class="text-xs font-bold uppercase text-[#717975]">Temperatura Despacho</span>
         <span class="text-2xl font-extrabold text-[#123d32]">${item.temperatura}</span>
-        <span class="text-xs text-emerald-700">Dentro de zona segura</span>
+        <span class="text-xs text-emerald-700">Dentro de zona segura INVIMA</span>
       </div>
       <div class="bg-white p-6 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col gap-2">
         <span class="text-xs font-bold uppercase text-[#717975]">Certificado Digital</span>
@@ -660,7 +681,7 @@ export function renderDetalleDonacion() {
           <span class="material-symbols-outlined text-emerald-600">verified</span>
           <span>Autenticado</span>
         </span>
-        <span class="text-xs text-[#717975]">Hash SHA-256 generado</span>
+        <span class="text-xs text-[#717975]">Hash SHA-256 de trazabilidad</span>
       </div>
     </div>
   </div>

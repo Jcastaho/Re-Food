@@ -38,7 +38,9 @@ export const routes = {
   'institucional': { title: 'Portal Re-Food', render: renderLanding }
 };
 
-export function navigate(routeName = 'resumen') {
+export function navigate(routeInput = 'resumen') {
+  const [routeName, queryString] = routeInput.split('?');
+  const params = new URLSearchParams(queryString || '');
   const route = routes[routeName] || routes['resumen'];
   const mainContent = document.getElementById('main-content');
   const breadcrumbCurrent = document.getElementById('breadcrumb-current');
@@ -86,7 +88,7 @@ export function navigate(routeName = 'resumen') {
     mainContent.style.transform = 'translateY(4px)';
 
     setTimeout(() => {
-      mainContent.innerHTML = route.render();
+      mainContent.innerHTML = route.render(params);
       window.scrollTo({ top: 0, behavior: 'smooth' });
       mainContent.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
       mainContent.style.opacity = '1';
@@ -95,8 +97,8 @@ export function navigate(routeName = 'resumen') {
   }
 
   // Actualizar URL hash sin recargar la página
-  if (window.location.hash.replace('#', '') !== routeName) {
-    window.location.hash = routeName;
+  if (window.location.hash.replace('#', '') !== routeInput) {
+    window.location.hash = routeInput;
   }
 }
 
