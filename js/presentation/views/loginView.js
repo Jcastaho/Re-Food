@@ -1,23 +1,27 @@
 /**
  * Presentation Layer - Login View
- * Pantalla de inicio de sesión de Stitch adaptada para acceso instantáneo
+ * Pantalla de inicio de sesión con soporte multi-rol (Donante vs Receptora)
  */
 
 export function renderLogin() {
   return `
   <div class="fixed inset-0 z-50 bg-[#F7F7F0] flex flex-col justify-between selection:bg-[#D9F27A] selection:text-[#123D32] overflow-y-auto min-h-screen">
-    <!-- Barra superior informativa / Simulador -->
+    <!-- Barra superior informativa / Accesos de Prueba Rápidos -->
     <aside class="w-full bg-[#0a231d] text-white/80 py-2.5 px-4 text-xs z-50 border-b border-[#123D32]">
       <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2">
           <span class="inline-block w-2 h-2 rounded-full bg-[#D9F27A] animate-pulse"></span>
-          <span class="font-medium text-white tracking-wide uppercase text-[11px]">Acceso Libre Donantes:</span>
-          <span class="text-white/60 hidden sm:inline">Ingresa con cualquier correo o presiona directamente el botón "Iniciar Sesión"</span>
+          <span class="font-medium text-white tracking-wide uppercase text-[11px]">Acceso Demostrativo Multi-Rol:</span>
+          <span class="text-white/60 hidden sm:inline">Selecciona el tipo de cuenta para explorar su experiencia:</span>
         </div>
-        <div class="flex items-center gap-1.5 py-0.5">
-          <button onclick="window.quickDemoLogin()" class="px-3 py-1 rounded bg-[#D9F27A] text-[#123D32] text-xs font-bold transition-all hover:bg-[#c2f362] shadow-sm flex items-center gap-1">
-            <span class="material-symbols-outlined text-[14px]">bolt</span>
-            <span>Entrar como Provenza Bistro</span>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="window.loginAsRole('donante')" class="px-3 py-1 rounded bg-[#D9F27A] text-[#123D32] text-xs font-bold transition-all hover:bg-[#c2f362] shadow-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">store</span>
+            <span>Restaurante Donante</span>
+          </button>
+          <button onclick="window.loginAsRole('receptor')" class="px-3 py-1 rounded bg-white text-[#123D32] text-xs font-bold transition-all hover:bg-neutral-100 shadow-sm flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px] text-[#546500]">volunteer_activism</span>
+            <span>Fundación Receptora</span>
           </button>
         </div>
       </div>
@@ -54,7 +58,7 @@ export function renderLogin() {
             </div>
             <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#D9F27A] text-[#123D32] font-bold text-[11px] tracking-wider uppercase shadow-sm border border-[#A9D84B]">
               <span class="w-2 h-2 rounded-full bg-[#546500]"></span>
-              Red de Rescate · Valle de Aburrá
+              Red Metropolitana · Valle de Aburrá
             </span>
           </header>
 
@@ -66,7 +70,7 @@ export function renderLogin() {
                 <span class="text-[#D9F27A] inline-block underline decoration-[#D9F27A]/50 decoration-4">alimenta allá.</span>
               </h1>
               <p class="text-sm sm:text-base text-white/90 font-normal leading-relaxed max-w-md">
-                Conectamos excedentes alimentarios de establecimientos gastronómicos en Medellín con comedores y fundaciones que los necesitan.
+                Plataforma de rescate que conecta los excedentes de hoteles, restaurantes y panaderías con comedores comunitarios y bancos de alimentos en Medellín.
               </p>
             </div>
 
@@ -77,12 +81,12 @@ export function renderLogin() {
               </div>
               <div>
                 <div class="flex items-center gap-2 mb-1">
-                  <span class="text-[11px] font-bold uppercase tracking-wider text-[#D9F27A]">Impacto Consolidado</span>
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-[#D9F27A]">Economía Circular Activa</span>
                   <span class="w-1.5 h-1.5 rounded-full bg-[#D9F27A]/60"></span>
-                  <span class="text-xs text-white/70">Medellín & AMVA</span>
+                  <span class="text-xs text-white/70">Valle de Aburrá</span>
                 </div>
                 <p class="text-sm sm:text-base font-medium text-white/95 leading-snug">
-                  Más de <strong class="text-[#D9F27A] font-bold">14.800 kg</strong> redistribuidos a comedores y bancos de alimentos locales.
+                  Trazabilidad 100% certificada con acta DIAN y control de cadena de frío en tránsito.
                 </p>
               </div>
             </div>
@@ -94,7 +98,7 @@ export function renderLogin() {
               <span class="inline-block w-2 h-2 rounded-full bg-[#D9F27A]"></span>
               Red Metropolitana Re-Food · Medellín
             </span>
-            <span>Versión 2.4</span>
+            <span>Versión 2.5 Multi-Rol</span>
           </footer>
         </section>
 
@@ -102,81 +106,88 @@ export function renderLogin() {
         <section class="w-full lg:w-[48%] bg-[#F7F7F0] flex flex-col justify-between p-6 sm:p-10 lg:p-14 relative">
           <div class="max-w-md w-full mx-auto my-auto py-2">
             
-            <!-- Encabezado de Formulario -->
-            <div class="mb-8">
-              <div class="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-md bg-[#123D32]/5 border border-[#123D32]/10">
+            <!-- Encabezado de Formulario con Selector de Rol -->
+            <div class="mb-6">
+              <div class="inline-flex items-center gap-2 mb-3 px-3 py-1 rounded-md bg-[#123D32]/5 border border-[#123D32]/10">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#123D32]"></span>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-[#123D32]">
-                  Centro de Control Donantes
+                <span class="text-[11px] font-bold uppercase tracking-wider text-[#123D32]" id="role-badge-text">
+                  Inicio de Sesión
                 </span>
               </div>
               <h2 class="text-2xl sm:text-3xl font-extrabold text-[#123D32] tracking-tight leading-tight">
-                Qué bueno tenerte de vuelta
+                Acceso a la Plataforma
               </h2>
-              <p class="mt-2 text-xs sm:text-sm text-[#77817A] leading-relaxed">
-                Ingresa para programar recolecciones de excedentes, calcular inocuidad y seguir tus donaciones en tiempo real.
+              <p class="mt-1.5 text-xs sm:text-sm text-[#77817A] leading-relaxed">
+                Selecciona tu tipo de cuenta o ingresa con tus credenciales asignadas:
               </p>
             </div>
 
-            <!-- Formulario interactivo sin restricciones -->
-            <form onsubmit="window.handleLoginSubmit(event)" class="flex flex-col gap-5">
-              <div class="flex flex-col gap-1.5">
+            <!-- Selector Visual de Rol -->
+            <div class="grid grid-cols-2 gap-2 p-1.5 bg-[#e8e9e2] rounded-2xl mb-5">
+              <button type="button" onclick="window.selectLoginTab('donante')" id="tab-login-donante" class="py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-[#00261e] text-white shadow-sm flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px]">store</span>
+                <span>Donante (Restaurante)</span>
+              </button>
+              <button type="button" onclick="window.selectLoginTab('receptor')" id="tab-login-receptor" class="py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-[#414845] hover:text-[#1a1c18] flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-[16px]">volunteer_activism</span>
+                <span>Receptora (Fundación)</span>
+              </button>
+            </div>
+
+            <!-- Formulario interactivo con credenciales asignadas -->
+            <form onsubmit="window.handleLoginSubmit(event)" class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1">
                 <label class="text-xs font-bold uppercase tracking-wider text-[#77817A]">
-                  Correo Electrónico o Usuario
+                  Correo Electrónico
                 </label>
                 <div class="relative">
                   <span class="material-symbols-outlined absolute left-3.5 top-3 text-[#77817A] text-[20px]">mail</span>
-                  <input type="text" id="login-email" value="gerencia@provenzabistro.co" placeholder="tu-correo@restaurante.com" class="w-full pl-11 pr-4 py-3 rounded-xl border border-[#E5E7DE] focus:outline-none focus:border-[#123D32] focus:ring-2 focus:ring-[#123D32]/20 text-sm bg-white text-[#202D29] shadow-xs" />
+                  <input type="email" id="login-email" required value="donante@refood.co" placeholder="tu-correo@refood.co" class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-[#E5E7DE] focus:outline-none focus:border-[#123D32] focus:ring-2 focus:ring-[#123D32]/20 text-sm bg-white text-[#202D29] shadow-xs" />
                 </div>
               </div>
 
-              <div class="flex flex-col gap-1.5">
+              <div class="flex flex-col gap-1">
                 <div class="flex items-center justify-between">
                   <label class="text-xs font-bold uppercase tracking-wider text-[#77817A]">
                     Contraseña
                   </label>
-                  <a href="#" onclick="alert('Modo demostración: puedes ingresar con cualquier contraseña o sin ella.'); return false;" class="text-xs text-[#546500] hover:underline font-semibold">
-                    ¿Olvidaste tu clave?
-                  </a>
+                  <span class="text-xs text-[#546500] font-mono font-semibold" id="pass-hint">
+                    donante123
+                  </span>
                 </div>
                 <div class="relative">
                   <span class="material-symbols-outlined absolute left-3.5 top-3 text-[#77817A] text-[20px]">lock</span>
-                  <input type="password" id="login-password" value="••••••••••••" placeholder="Contraseña de acceso" class="w-full pl-11 pr-4 py-3 rounded-xl border border-[#E5E7DE] focus:outline-none focus:border-[#123D32] focus:ring-2 focus:ring-[#123D32]/20 text-sm bg-white text-[#202D29] shadow-xs" />
+                  <input type="password" id="login-password" required value="donante123" placeholder="Contraseña de acceso" class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-[#E5E7DE] focus:outline-none focus:border-[#123D32] focus:ring-2 focus:ring-[#123D32]/20 text-sm bg-white text-[#202D29] shadow-xs" />
                 </div>
               </div>
 
-              <div class="flex items-center justify-between text-xs text-[#77817A]">
-                <label class="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" checked class="w-4 h-4 accent-[#123D32] rounded cursor-pointer" />
-                  <span>Mantener sesión iniciada</span>
-                </label>
-                <span class="text-emerald-700 font-semibold flex items-center gap-1">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                  Acceso habilitado
-                </span>
-              </div>
-
-              <button type="submit" id="btn-login-submit" class="w-full py-3.5 px-4 bg-[#123D32] hover:bg-[#0e2f27] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-[0.99] transition-all mt-2">
-                <span id="btn-login-text">Iniciar Sesión en Centro de Control</span>
+              <button type="submit" id="btn-login-submit" class="w-full py-3.5 px-4 bg-[#123D32] hover:bg-[#0e2f27] text-white rounded-xl text-sm font-bold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl active:scale-[0.99] transition-all mt-1">
+                <span id="btn-login-text">Iniciar Sesión</span>
                 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
               </button>
 
-              <div class="relative flex items-center justify-center my-1">
+              <div class="relative flex items-center justify-center my-0.5">
                 <div class="border-t border-[#E5E7DE] w-full"></div>
-                <span class="bg-[#F7F7F0] px-3 text-xs text-[#77817A] uppercase font-bold tracking-wider">o</span>
+                <span class="bg-[#F7F7F0] px-3 text-[11px] text-[#77817A] uppercase font-bold tracking-wider">o ingresar con 1 clic</span>
               </div>
 
-              <!-- Botón Acceso Rápido Directo sin credenciales -->
-              <button type="button" onclick="window.quickDemoLogin()" class="w-full py-3 px-4 bg-white hover:bg-neutral-50 text-[#123D32] border border-[#123D32]/30 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all">
-                <span class="material-symbols-outlined text-[18px] text-[#546500]">rocket_launch</span>
-                <span>Entrar directamente sin credenciales (Demo)</span>
-              </button>
+              <!-- Botones de Acceso Directo por Rol -->
+              <div class="grid grid-cols-2 gap-2">
+                <button type="button" onclick="window.loginAsRole('donante')" class="py-2.5 px-3 bg-white hover:bg-neutral-50 text-[#123D32] border border-[#123D32]/30 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs">
+                  <span class="material-symbols-outlined text-[16px] text-[#546500]">store</span>
+                  <span>Provenza Bistro</span>
+                </button>
+                <button type="button" onclick="window.loginAsRole('receptor')" class="py-2.5 px-3 bg-white hover:bg-neutral-50 text-[#123D32] border border-[#123D32]/30 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all shadow-2xs">
+                  <span class="material-symbols-outlined text-[16px] text-[#546500]">volunteer_activism</span>
+                  <span>Fundación Saciar</span>
+                </button>
+              </div>
             </form>
 
-            <!-- Nota de Registro -->
-            <div class="mt-8 pt-6 border-t border-[#E5E7DE] text-center">
+            <!-- Nota de Registro e Institucional -->
+            <div class="mt-6 pt-4 border-t border-[#E5E7DE] text-center">
               <p class="text-xs text-[#77817A]">
-                ¿Eres un hotel, restaurante o negocio nuevo en Medellín? <br />
+                ¿Quieres vincular tu restaurante o comedor comunitario? <br />
                 <a href="#institucional" class="text-[#123D32] font-bold hover:underline inline-flex items-center gap-1 mt-1">
                   <span>Conoce el programa Re-Food Valle de Aburrá</span>
                   <span class="material-symbols-outlined text-[14px]">open_in_new</span>
@@ -191,31 +202,68 @@ export function renderLogin() {
   `;
 }
 
-// Controladores para Login interactivo
-window.handleLoginSubmit = function(e) {
-  if (e) e.preventDefault();
-  const btn = document.getElementById('btn-login-text');
-  if (btn) btn.textContent = 'Accediendo al Panel...';
+let currentSelectedRole = 'donante';
 
+window.selectLoginTab = function(role) {
+  currentSelectedRole = role;
+  const btnDon = document.getElementById('tab-login-donante');
+  const btnRec = document.getElementById('tab-login-receptor');
   const emailInput = document.getElementById('login-email');
-  const userEmail = emailInput ? emailInput.value.trim() : 'donante@refood.co';
+  const passInput = document.getElementById('login-password');
+  const passHint = document.getElementById('pass-hint');
+  const badgeText = document.getElementById('role-badge-text');
 
-  // Guardar estado de autenticación en localStorage
-  localStorage.setItem('refood_logged_in', 'true');
-  localStorage.setItem('refood_user_email', userEmail || 'donante@refood.co');
-
-  setTimeout(() => {
-    window.navigate('resumen');
-  }, 400);
+  if (role === 'donante') {
+    if (btnDon) btnDon.className = "py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-[#00261e] text-white shadow-sm flex items-center justify-center gap-1.5";
+    if (btnRec) btnRec.className = "py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-[#414845] hover:text-[#1a1c18] flex items-center justify-center gap-1.5";
+    if (emailInput) emailInput.value = 'donante@refood.co';
+    if (passInput) passInput.value = 'donante123';
+    if (passHint) passHint.textContent = 'donante123';
+    if (badgeText) badgeText.textContent = 'Restaurante Donante';
+  } else {
+    if (btnDon) btnDon.className = "py-2.5 px-3 rounded-xl text-xs font-bold transition-all text-[#414845] hover:text-[#1a1c18] flex items-center justify-center gap-1.5";
+    if (btnRec) btnRec.className = "py-2.5 px-3 rounded-xl text-xs font-bold transition-all bg-[#00261e] text-white shadow-sm flex items-center justify-center gap-1.5";
+    if (emailInput) emailInput.value = 'receptor@refood.co';
+    if (passInput) passInput.value = 'receptor123';
+    if (passHint) passHint.textContent = 'receptor123';
+    if (badgeText) badgeText.textContent = 'Fundación Receptora';
+  }
 };
 
-window.quickDemoLogin = function() {
+window.handleLoginSubmit = function(e) {
+  if (e) e.preventDefault();
+  const email = document.getElementById('login-email')?.value.trim().toLowerCase() || '';
+
+  // Deducir rol por correo o tab activo
+  let role = currentSelectedRole;
+  if (email.includes('receptor') || email.includes('saciar') || email.includes('comedor')) {
+    role = 'receptor';
+  } else if (email.includes('donante') || email.includes('provenza') || email.includes('bistro')) {
+    role = 'donante';
+  }
+
+  window.loginAsRole(role);
+};
+
+window.loginAsRole = function(role) {
+  const isDonante = role === 'donante';
+
   localStorage.setItem('refood_logged_in', 'true');
-  localStorage.setItem('refood_user_email', 'gerencia@provenzabistro.co');
-  window.navigate('resumen');
+  localStorage.setItem('refood_role', role);
+  localStorage.setItem('refood_entity_name', isDonante ? 'Provenza Bistro & Café' : 'Fundación Saciar');
+  localStorage.setItem('refood_user_email', isDonante ? 'donante@refood.co' : 'receptor@refood.co');
+
+  if (typeof window.applyRoleShell === 'function') {
+    window.applyRoleShell(role);
+  }
+
+  // Navegar a la pantalla de inicio correspondiente a cada rol
+  window.navigate(isDonante ? 'resumen' : 'receptor-dashboard');
 };
 
 window.logout = function() {
   localStorage.removeItem('refood_logged_in');
+  localStorage.removeItem('refood_role');
+  localStorage.removeItem('refood_entity_name');
   window.navigate('login');
 };

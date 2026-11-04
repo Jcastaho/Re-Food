@@ -1,7 +1,7 @@
 /**
  * Presentation Layer - Router SPA
  * Maneja la navegación sin recargas para las pantallas de Re-Food
- * 100% compatible con GitHub Pages mediante HashRouting
+ * 100% compatible con GitHub Pages mediante HashRouting y soporte multi-rol
  */
 
 import { renderDashboard } from './views/dashboardView.js';
@@ -20,8 +20,17 @@ import {
   renderConfiguracion,
   renderLanding
 } from './views/extraViews.js';
+import {
+  renderReceptorDashboard,
+  renderReceptorDisponibles,
+  renderReceptorMuelle,
+  renderReceptorActas,
+  renderReceptorImpacto,
+  renderReceptorPerfil
+} from './views/receptorViews.js';
 
 export const routes = {
+  // Rutas Donante (Restaurante)
   'resumen': { title: 'Panel de Donante', render: renderDashboard },
   'mis-excedentes': { title: 'Mis Excedentes', render: renderMisExcedentes },
   'publicar': { title: 'Publicar Excedente', render: renderPublicar },
@@ -34,9 +43,70 @@ export const routes = {
   'detalle-donacion': { title: 'Detalle de Donación', render: renderDetalleDonacion },
   'notificaciones': { title: 'Notificaciones y Perfil', render: renderNotificaciones },
   'configuracion': { title: 'Configuración', render: renderConfiguracion },
-  'login': { title: 'Acceso Donantes', render: renderLogin, isFullPage: true },
+
+  // Rutas Receptor (Fundación / Comedor)
+  'receptor-dashboard': { title: 'Centro de Acopio · Fundación Saciar', render: renderReceptorDashboard },
+  'receptor-disponibles': { title: 'Muro de Rescate · Alimentos Disponibles', render: renderReceptorDisponibles },
+  'receptor-muelle': { title: 'Recepción en Muelle y Bodega', render: renderReceptorMuelle },
+  'receptor-actas': { title: 'Actas y Certificados Emitidos', render: renderReceptorActas },
+  'receptor-impacto': { title: 'Distribución y Beneficiarios', render: renderReceptorImpacto },
+  'receptor-perfil': { title: 'Ficha Institucional Receptora', render: renderReceptorPerfil },
+
+  // Rutas Globales
+  'login': { title: 'Acceso a la Plataforma', render: renderLogin, isFullPage: true },
   'institucional': { title: 'Portal Re-Food', render: renderLanding }
 };
+
+export function applyRoleShell(role = 'donante') {
+  const isReceptor = role === 'receptor';
+
+  // Sidebar menus
+  const sbDonante = document.getElementById('sidebar-donante');
+  const sbReceptor = document.getElementById('sidebar-receptor');
+  if (sbDonante && sbReceptor) {
+    if (isReceptor) {
+      sbDonante.classList.add('hidden');
+      sbReceptor.classList.remove('hidden');
+    } else {
+      sbDonante.classList.remove('hidden');
+      sbReceptor.classList.add('hidden');
+    }
+  }
+
+  // Sidebar profiles
+  const spDonante = document.getElementById('sidebar-profile-donante');
+  const spReceptor = document.getElementById('sidebar-profile-receptor');
+  if (spDonante && spReceptor) {
+    if (isReceptor) {
+      spDonante.classList.add('hidden');
+      spReceptor.classList.remove('hidden');
+    } else {
+      spDonante.classList.remove('hidden');
+      spReceptor.classList.add('hidden');
+    }
+  }
+
+  // Header profiles
+  const hpDonante = document.getElementById('header-profile-donante');
+  const hpReceptor = document.getElementById('header-profile-receptor');
+  if (hpDonante && hpReceptor) {
+    if (isReceptor) {
+      hpDonante.classList.add('hidden');
+      hpReceptor.classList.remove('hidden');
+    } else {
+      hpDonante.classList.remove('hidden');
+      hpReceptor.classList.add('hidden');
+    }
+  }
+
+  // Breadcrumb prefix
+  const bcPrefix = document.getElementById('header-breadcrumb-prefix');
+  if (bcPrefix) {
+    bcPrefix.textContent = isReceptor ? 'Sede Receptora' : 'Panel Donante';
+  }
+}
+
+window.applyRoleShell = applyRoleShell;
 
 export function navigate(routeInput = 'resumen') {
   const [routeName, queryString] = routeInput.split('?');
@@ -52,6 +122,10 @@ export function navigate(routeInput = 'resumen') {
   if (breadcrumbCurrent) {
     breadcrumbCurrent.textContent = route.title;
   }
+
+  // Aplicar rol activo al shell
+  const currentRole = localStorage.getItem('refood_role') || 'donante';
+  applyRoleShell(currentRole);
 
   // Si es pantalla completa (ej: Login), ocultamos sidebar y header
   if (route.isFullPage) {
@@ -89,6 +163,9 @@ export function navigate(routeInput = 'resumen') {
 
     setTimeout(() => {
       mainContent.innerHTML = route.render(params);
+      if (typeof window.actualizarBadgeNotificaciones === 'function') {
+        window.actualizarBadgeNotificaciones();
+      }
       window.scrollTo({ top: 0, behavior: 'smooth' });
       mainContent.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
       mainContent.style.opacity = '1';
@@ -115,7 +192,8 @@ export function initRouter() {
   // Si no hay hash y no ha iniciado sesión, mostrar login; si ya hay sesión o hash, navegar allí
   if (!currentHash) {
     const isLogged = localStorage.getItem('refood_logged_in');
-    navigate(isLogged ? 'resumen' : 'login');
+    const role = localStorage.getItem('refood_role') || 'donante';
+    navigate(isLogged ? (role === 'receptor' ? 'receptor-dashboard' : 'resumen') : 'login');
   } else {
     navigate(currentHash);
   }

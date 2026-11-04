@@ -18,36 +18,57 @@ Puedes acceder a la versión desplegada en vivo a través del siguiente enlace u
 
 ---
 
-## 🌟 Características Principales
+## 👥 Credenciales de Acceso Oficiales (Multi-Rol)
 
-1. **Centro de Control para Donantes (Dashboard):**
-   - Indicadores en tiempo real: Excedentes publicados, Alimentos recuperados (kg), Donaciones entregadas y tasa de efectividad (100%).
-   - Gráfico de progreso ecológico y social (Raciones servidas, CO₂e evitado).
-   - Tabla interactiva con trazabilidad de lotes en ruta y entregados.
+Re-Food cuenta con dos experiencias completamente adaptadas según el rol del usuario:
 
-2. **Publicación Inteligente de Excedentes (`#publicar`):**
-   - Formulario para registrar alimentos por categoría (Cereales, Proteínas, Panadería, Frutas/Verduras, Lácteos).
-   - Selección de temperatura (°C) y horario de recogida.
-   - Diagnóstico automático de inocuidad en tiempo real.
-   - Almacenamiento reactivo local que actualiza de inmediato el dashboard.
+| Rol | Entidad / Establecimiento | Usuario / Correo | Contraseña | Pantalla Inicial |
+| :--- | :--- | :--- | :--- | :--- |
+| 🧑‍🍳 **Donante (Restaurante)** | **Provenza Bistro & Café** | `donante@refood.co` | `donante123` | `#resumen` (Panel Donante) |
+| 🤝 **Receptora (Fundación)** | **Fundación Saciar** | `receptor@refood.co` | `receptor123` | `#receptor-dashboard` (Centro de Acopio) |
 
-3. **Gestión de Inventario (`#mis-excedentes`):**
-   - Listado completo de lotes con filtros por estado: _Todos_, _En Ruta_, _Asignados_, _Entregados_.
-   - Buscador por nombre de alimento o código de lote.
+> 💡 **Acceso Rápido:** En la pantalla de inicio de sesión (`#login`) puedes ingresar con las credenciales anteriores o simplemente hacer clic en los botones directos **"Provenza Bistro"** o **"Fundación Saciar"**.
 
-4. **Calculadora Interactiva de Inocuidad y Vida Útil (`#calculadora`):**
-   - Algoritmo térmico basado en la Resolución 2674 de 2013 y normatividad INVIMA.
-   - Deslizadores en tiempo real para evaluar zonas de peligro térmico y semáforo bacteriológico (_Seguro_, _Precaución_, _Riesgo Crítico_).
+---
 
-5. **Directorio y Trazabilidad Logística:**
-   - **Organizaciones Receptoras (`#organizaciones`):** Catálogo de ONGs y comedores auditados.
-   - **Banco de Alimentos de Medellín (`#banco-alimentos`):** Ficha técnica con capacidad y horarios.
-   - **Ruta Logística en Vivo (`#ruta-logistica`):** Seguimiento de la furgoneta isotérmica con control de temperatura en tránsito.
-   - **Detalle de Donación (`#detalle-donacion`):** Trazabilidad del lote con hash y certificado.
+## 🌟 Dos Experiencias Integradas
 
-6. **Pantalla de Inicio de Sesión (`#login`):**
-   - Diseño editorial completo dividido en área informativa e interfaz de acceso.
-   - **Acceso demostrativo:** Permite ingresar con cualquier correo/contraseña o directamente dando clic en el botón _"Iniciar Sesión"_ o _"Entrar directamente sin credenciales"_.
+### 1. 🧑‍🍳 Vista Donante (Establecimiento Gastronómico)
+Diseñada para que hoteles, panaderías y restaurantes gestionen sus excedentes antes de que pierdan valor nutricional:
+
+* **Publicación Inteligente con Optimización de Imágenes (`#publicar`):**
+  * Compresión automática en el navegador (Canvas a WebP < 80 KB) de fotos tomadas con celular o cámara.
+  * Presets fotográficos por categoría (cereales, proteínas, panadería, frutas/verduras, lácteos).
+  * Diagnóstico térmico en vivo según la Resolución 2674 de 2013 del INVIMA.
+* **Control de Inventario y CRUD Reactivo (`#mis-excedentes`):**
+  * Selector de ámbito: *Mis Lotes (Provenza Bistro & Café)* vs. *Red Metropolitana (Todos los Restaurantes)*.
+  * Operaciones de edición, borrado seguro con modal y actualización de estados (*Publicado, Asignado, En Ruta, Entregado*).
+* **Calculadora Térmica de Inocuidad (`#calculadora`):**
+  * Deslizadores interactivos de temperatura y horas de preparación con botón directo para donar el lote verificado.
+* **Directorio y Asignación de Fundaciones (`#organizaciones`):**
+  * Filtro por municipio (*Medellín, Envigado, Bello*) y asignación de lotes disponibles con 1 clic.
+* **Trazabilidad y Ruta Logística (`#ruta-logistica`):**
+  * Monitoreo contextual por lote del furgón isotérmico con control de temperatura en tránsito (4°C).
+* **Certificado Oficial de Donación DIAN (`#detalle-donacion`):**
+  * Generación y descarga/impresión de acta oficial con hash SHA-256 bajo el Artículo 125 del Estatuto Tributario y Ley 1990 de 2019.
+
+---
+
+### 2. 🤝 Vista Receptora (Fundación / Comedor Comunitario)
+Diseñada para que comedores sociales y bancos de alimentos gestionen el acopio, verifiquen descargues y certifiquen entregas:
+
+* **Centro de Acopio Social (`#receptor-dashboard`):**
+  * Indicadores en vivo: Kilos recibidos hoy, raciones servidas, lotes en camino y capacidad disponible en bodega/cuarto frío.
+* **Muro de Rescate · Alimentos Disponibles (`#receptor-disponibles`):**
+  * Catálogo en tiempo real de comida recién publicada por restaurantes con botón **"Solicitar para nuestro comedor"** para coordinar la recogida automática.
+* **Recepción en Muelle y Control Bromatológico (`#receptor-muelle`):**
+  * Monitoreo de furgonetas en camino y confirmación de descargue en bodega con registro de temperatura de llegada.
+* **Libro de Actas y Certificados Emitidos (`#receptor-actas`):**
+  * Historial de certificados tributarios emitidos a favor de los restaurantes donantes, listos para descargar o imprimir.
+* **Población Beneficiaria (`#receptor-impacto`):**
+  * Trazabilidad social de platos entregados a primera infancia, adultos mayores y madres cabeza de familia en Belén y la Comuna 16.
+* **Ficha Institucional Receptora (`#receptor-perfil`):**
+  * Capacidad diaria de bodega (420 kg/día), horarios de descargue y contacto operativo.
 
 ---
 
@@ -57,32 +78,34 @@ El proyecto está estructurado estrictamente bajo los principios de Clean Archit
 
 ```
 Re-Food/
-├── index.html                   # Shell SPA (Sidebar, Header y Contenedor Reactivo)
+├── index.html                   # Shell SPA (Sidebar adaptativo, Header y Contenedor Reactivo)
 ├── 404.html                     # Fallback SPA para GitHub Pages
 ├── .nojekyll                    # Configuración para GitHub Pages
 ├── server.js                    # Servidor local de desarrollo (Node.js nativo)
 │
 ├── js/
-│   ├── app.js                   # Bootstrap de la aplicación
+│   ├── app.js                   # Bootstrap de la aplicación y sincronización de badges
 │   │
 │   ├── core/                    # 🏛️ CAPA DE DOMINIO (Reglas de negocio puras)
 │   │   ├── entities.js          # Entidades: Excedente, Organizacion, Donacion
-│   │   └── useCases.js          # Casos de uso: Inocuidad, Huella Ambiental, Raciones
+│   │   ├── useCases.js          # Casos de uso: Inocuidad, Huella Ambiental, Raciones
+│   │   └── imageCompressor.js   # Optimización y compresión client-side WebP/JPEG
 │   │
 │   ├── data/                    # 💾 CAPA DE DATOS (Patrón Repository y Persistencia)
-│   │   ├── mockData.js          # Datos precargados de Stitch (Provenza, Laureles, etc.)
+│   │   ├── mockData.js          # Datos iniciales (Provenza Bistro, Saciar, Laureles, etc.)
 │   │   └── repository.js        # Repositorio agnóstico con sincronización en LocalStorage
 │   │
 │   └── presentation/            # 🎨 CAPA DE PRESENTACIÓN (UI y Enrutamiento)
-│       ├── router.js            # Router SPA basado en HashRouting
+│       ├── router.js            # Router SPA multi-rol basado en HashRouting
 │       └── views/               # Controladores y componentes de vista
 │           ├── dashboardView.js       # Panel principal del donante
-│           ├── publicarView.js        # Formulario de publicación interactivo
-│           ├── misExcedentesView.js   # Inventario y filtros reactivos
-│           ├── calculadoraView.js     # Calculadora térmica de inocuidad
-│           ├── organizacionesView.js  # Directorio de fundaciones
-│           ├── loginView.js           # Inicio de sesión editorial fullscreen
-│           └── extraViews.js          # Impacto, Ruta, Guía, Configuración
+│           ├── publicarView.js        # Formulario de publicación y edición con fotos
+│           ├── misExcedentesView.js   # Inventario y filtros reactivos del restaurante
+│           ├── calculadoraView.js     # Calculadora térmica de inocuidad conectada
+│           ├── organizacionesView.js  # Directorio y asignación de fundaciones por municipio
+│           ├── receptorViews.js       # Vistas exclusivas de la entidad receptora (Saciar)
+│           ├── loginView.js           # Inicio de sesión con selector de roles
+│           └── extraViews.js          # Ruta logística, impacto, guía, certificado DIAN
 ```
 
 ---
@@ -91,7 +114,7 @@ Re-Food/
 
 ### Opción 1: Con Node.js (Recomendado)
 
-No requiere instalación de librerías (`npm install` no es necesario).
+No requiere instalación de librerías externas (`npm install` no es necesario).
 
 ```bash
 # Iniciar servidor nativo en el puerto 8000
@@ -111,3 +134,9 @@ python -m http.server 8000
 ```
 
 ---
+
+## 📜 Marco Normativo Colombiano Aplicado
+
+* **Ley 1990 de 2019:** Política de Prevención y Reducción de Pérdidas y Desperdicios de Alimentos en Colombia.
+* **Resolución 2674 de 2013 (INVIMA):** Buenas prácticas de manufactura y control térmico en transporte isotérmico.
+* **Artículo 125 del Estatuto Tributario:** Beneficio de deducción y descuento del impuesto de renta por donaciones de alimentos a entidades sin ánimo de lucro certificadas (ESAL).

@@ -77,75 +77,130 @@
         </svg>
       </div>
 
-      <!-- Sección Principal -->
-      <div class="flex flex-col gap-1">
-        <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Gestión de Excedentes</span>
-        <a href="#resumen" data-path="resumen" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl bg-[#1b4e41] text-white font-semibold border-l-2 border-[#d5ee76] text-xs transition-all">
-          <span class="material-symbols-outlined text-[19px]">dashboard</span>
-          <span>Panel Resumen</span>
-        </a>
-        <a href="#mis-excedentes" data-path="mis-excedentes" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">inventory_2</span>
-          <span>Mis Excedentes</span>
-        </a>
-        <a href="#publicar" data-path="publicar" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">add_circle</span>
-          <span class="flex-1">Publicar Excedente</span>
-          <span class="w-2 h-2 rounded-full bg-[#d5ee76] animate-pulse"></span>
-        </a>
+      <!-- MENÚ DONANTE (RESTAURANTE) -->
+      <div id="sidebar-donante" class="flex flex-col gap-4">
+        <!-- Sección Principal -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Gestión de Excedentes</span>
+          <a href="#resumen" data-path="resumen" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl bg-[#1b4e41] text-white font-semibold border-l-2 border-[#d5ee76] text-xs transition-all">
+            <span class="material-symbols-outlined text-[19px]">dashboard</span>
+            <span>Panel Resumen</span>
+          </a>
+          <a href="#mis-excedentes" data-path="mis-excedentes" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">inventory_2</span>
+            <span>Mis Excedentes</span>
+          </a>
+          <a href="#publicar" data-path="publicar" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">add_circle</span>
+            <span class="flex-1">Publicar Excedente</span>
+            <span class="w-2 h-2 rounded-full bg-[#d5ee76] animate-pulse"></span>
+          </a>
+        </div>
+
+        <!-- Sección Logística y Red -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Red y Destinatarios</span>
+          <a href="#organizaciones" data-path="organizaciones" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">diversity_3</span>
+            <span>Organizaciones</span>
+          </a>
+          <a href="#banco-alimentos" data-path="banco-alimentos" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">domain</span>
+            <span>Banco de Alimentos</span>
+          </a>
+          <a href="#ruta-logistica" data-path="ruta-logistica" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">route</span>
+            <span>Ruta Logística</span>
+          </a>
+        </div>
+
+        <!-- Sección Inocuidad e Impacto -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Inocuidad & Métricas</span>
+          <a href="#impacto" data-path="impacto" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">eco</span>
+            <span>Impacto Ambiental</span>
+          </a>
+          <a href="#calculadora" data-path="calculadora" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">calculate</span>
+            <span>Calculadora Inocuidad</span>
+          </a>
+          <a href="#guia-conservacion" data-path="guia-conservacion" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">menu_book</span>
+            <span>Guía Conservación</span>
+          </a>
+        </div>
+
+        <!-- Sección Sistema -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Ajustes</span>
+          <a href="#notificaciones" data-path="notificaciones" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">notifications</span>
+            <span>Notificaciones</span>
+          </a>
+          <a href="#configuracion" data-path="configuracion" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">tune</span>
+            <span>Configuración</span>
+          </a>
+        </div>
       </div>
 
-      <!-- Sección Logística y Red -->
-      <div class="flex flex-col gap-1">
-        <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Red y Destinatarios</span>
-        <a href="#organizaciones" data-path="organizaciones" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">diversity_3</span>
-          <span>Organizaciones</span>
-        </a>
-        <a href="#banco-alimentos" data-path="banco-alimentos" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">domain</span>
-          <span>Banco de Alimentos</span>
-        </a>
-        <a href="#ruta-logistica" data-path="ruta-logistica" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">route</span>
-          <span>Ruta Logística</span>
-        </a>
-      </div>
+      <!-- MENÚ RECEPTOR (FUNDACIÓN SACIAR) -->
+      <div id="sidebar-receptor" class="hidden flex flex-col gap-4">
+        <!-- Sección Acopio -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#d5ee76]">Gestión de Acopio Social</span>
+          <a href="#receptor-dashboard" data-path="receptor-dashboard" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl bg-[#1b4e41] text-white font-semibold border-l-2 border-[#d5ee76] text-xs transition-all">
+            <span class="material-symbols-outlined text-[19px]">warehouse</span>
+            <span>Centro de Acopio</span>
+          </a>
+          <a href="#receptor-disponibles" data-path="receptor-disponibles" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">soup_kitchen</span>
+            <span class="flex-1">Alimentos Disponibles</span>
+            <span class="w-2 h-2 rounded-full bg-[#d5ee76] animate-pulse"></span>
+          </a>
+          <a href="#receptor-muelle" data-path="receptor-muelle" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">forklift</span>
+            <span>Recepción en Muelle</span>
+          </a>
+        </div>
 
-      <!-- Sección Inocuidad e Impacto -->
-      <div class="flex flex-col gap-1">
-        <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Inocuidad & Métricas</span>
-        <a href="#impacto" data-path="impacto" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">eco</span>
-          <span>Impacto Ambiental</span>
-        </a>
-        <a href="#calculadora" data-path="calculadora" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">calculate</span>
-          <span>Calculadora Inocuidad</span>
-        </a>
-        <a href="#guia-conservacion" data-path="guia-conservacion" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">menu_book</span>
-          <span>Guía Conservación</span>
-        </a>
-      </div>
+        <!-- Sección Impacto Comunitario -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Impacto y Certificación</span>
+          <a href="#receptor-impacto" data-path="receptor-impacto" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">groups</span>
+            <span>Población Beneficiaria</span>
+          </a>
+          <a href="#receptor-actas" data-path="receptor-actas" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">verified</span>
+            <span>Actas DIAN Emitidas</span>
+          </a>
+          <a href="#ruta-logistica" data-path="ruta-logistica" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">route</span>
+            <span>Furgón en Camino</span>
+          </a>
+        </div>
 
-      <!-- Sección Sistema -->
-      <div class="flex flex-col gap-1">
-        <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Ajustes</span>
-        <a href="#notificaciones" data-path="notificaciones" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">notifications</span>
-          <span>Notificaciones</span>
-        </a>
-        <a href="#configuracion" data-path="configuracion" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-          <span class="material-symbols-outlined text-[19px]">tune</span>
-          <span>Configuración</span>
-        </a>
+        <!-- Sección Institucional -->
+        <div class="flex flex-col gap-1">
+          <span class="px-2 text-[10px] uppercase font-bold tracking-wider text-[#7da899]">Organización</span>
+          <a href="#receptor-perfil" data-path="receptor-perfil" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">corporate_fare</span>
+            <span>Ficha Institucional</span>
+          </a>
+          <a href="#guia-conservacion" data-path="guia-conservacion" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
+            <span class="material-symbols-outlined text-[19px]">menu_book</span>
+            <span>Protocolo Bromatológico</span>
+          </a>
+        </div>
       </div>
     </div>
 
     <!-- Perfil del Establecimiento en Sidebar -->
     <div class="pt-3 border-t border-[#1b4e41] flex flex-col gap-2">
-      <div onclick="window.navigate('notificaciones')" class="bg-[#164438] hover:bg-[#1c5244] p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-colors">
+      <!-- Perfil Donante -->
+      <div id="sidebar-profile-donante" onclick="window.navigate('notificaciones')" class="bg-[#164438] hover:bg-[#1c5244] p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-colors">
         <div class="flex items-center gap-2.5 overflow-hidden">
           <div class="w-8 h-8 rounded-full bg-[#d5ee76] text-[#171e00] font-bold text-xs flex items-center justify-center shrink-0">
             PB
@@ -153,6 +208,20 @@
           <div class="flex flex-col min-w-0">
             <span class="text-xs font-semibold text-white truncate">Provenza Bistro & Café</span>
             <span class="text-[10px] text-[#a4d0c0] truncate">El Poblado · Medellín</span>
+          </div>
+        </div>
+        <span class="material-symbols-outlined text-[#a4d0c0] text-[18px]">expand_more</span>
+      </div>
+
+      <!-- Perfil Receptor -->
+      <div id="sidebar-profile-receptor" onclick="window.navigate('receptor-perfil')" class="hidden bg-[#164438] hover:bg-[#1c5244] p-2.5 rounded-xl flex items-center justify-between cursor-pointer transition-colors">
+        <div class="flex items-center gap-2.5 overflow-hidden">
+          <div class="w-8 h-8 rounded-full bg-emerald-300 text-[#00261e] font-bold text-xs flex items-center justify-center shrink-0">
+            FS
+          </div>
+          <div class="flex flex-col min-w-0">
+            <span class="text-xs font-semibold text-white truncate">Fundación Saciar</span>
+            <span class="text-[10px] text-[#d5ee76] truncate">Belén · Entidad Receptora</span>
           </div>
         </div>
         <span class="material-symbols-outlined text-[#a4d0c0] text-[18px]">expand_more</span>
@@ -173,26 +242,37 @@
     <!-- HEADER SUPERIOR FLOTANTE -->
     <header id="app-header" class="sticky top-0 right-0 h-16 bg-[#fafaf3]/90 backdrop-blur-md z-40 border-b border-[#e8e9e2] px-6 flex items-center justify-between shadow-xs">
       <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs">
-        <span class="text-[#717975] font-bold uppercase tracking-wider">Panel Donante</span>
+        <span class="text-[#717975] font-bold uppercase tracking-wider" id="header-breadcrumb-prefix">Panel Donante</span>
         <span class="text-[#c0c8c4]">/</span>
         <span class="text-[#546500] font-bold" id="breadcrumb-current">Panel Resumen</span>
       </nav>
 
       <div class="flex items-center gap-4">
         <!-- Notificaciones -->
-        <button onclick="window.navigate('notificaciones')" class="relative p-2 rounded-xl hover:bg-[#eeeee7] text-[#414845] transition-colors" title="Ver notificaciones">
+        <button onclick="window.navigate(localStorage.getItem('refood_role') === 'receptor' ? 'receptor-actas' : 'notificaciones')" class="relative p-2 rounded-xl hover:bg-[#eeeee7] text-[#414845] transition-colors" title="Ver notificaciones">
           <span class="material-symbols-outlined text-[22px]">notifications</span>
-          <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-[#fafaf3]"></span>
+          <span id="notif-badge" class="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-rose-500 text-white text-[10px] font-bold flex items-center justify-center ring-2 ring-[#fafaf3]"></span>
         </button>
 
-        <!-- Perfil rápido -->
-        <div onclick="window.navigate('notificaciones')" class="flex items-center gap-2 cursor-pointer p-1.5 rounded-xl hover:bg-[#eeeee7] transition-colors">
+        <!-- Perfil rápido Donante -->
+        <div id="header-profile-donante" onclick="window.navigate('notificaciones')" class="flex items-center gap-2 cursor-pointer p-1.5 rounded-xl hover:bg-[#eeeee7] transition-colors">
           <div class="w-8 h-8 rounded-full bg-[#123d32] text-white flex items-center justify-center font-bold text-xs">
             PB
           </div>
           <div class="hidden sm:flex flex-col text-left">
             <span class="text-xs font-bold text-[#1a1c18]">Provenza Bistro</span>
             <span class="text-[10px] text-[#546500] font-medium">Donante Activo</span>
+          </div>
+        </div>
+
+        <!-- Perfil rápido Receptor -->
+        <div id="header-profile-receptor" onclick="window.navigate('receptor-perfil')" class="hidden flex items-center gap-2 cursor-pointer p-1.5 rounded-xl hover:bg-[#eeeee7] transition-colors">
+          <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">
+            FS
+          </div>
+          <div class="hidden sm:flex flex-col text-left">
+            <span class="text-xs font-bold text-[#1a1c18]">Fundación Saciar</span>
+            <span class="text-[10px] text-[#546500] font-medium">Sede Receptora</span>
           </div>
         </div>
       </div>

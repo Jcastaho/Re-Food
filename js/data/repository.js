@@ -12,8 +12,24 @@ class DataRepository {
   constructor() {
     this.STORAGE_KEY_EXCEDENTES = 'refood_excedentes_v2';
     this.STORAGE_KEY_NOTIFS = 'refood_notificaciones_v2';
+    this.STORAGE_KEY_PERFIL = 'refood_perfil_donante_v1';
     this._memoryExcedentes = [...INITIAL_EXCEDENTES];
     this._memoryNotifs = [...INITIAL_NOTIFICACIONES];
+    this._memoryPerfil = {
+      nombre: 'Provenza Bistro & Café',
+      razonSocial: 'Provenza Gastronomía S.A.S.',
+      nit: '901.442.819-2',
+      responsable: 'Chef Andrés Gómez',
+      telefono: '+57 (604) 312 9088',
+      whatsapp: '+57 310 492 8119',
+      email: 'cocina@provenzabistro.co',
+      direccion: 'Cra 35 # 8A-42, El Poblado',
+      municipio: 'Medellín',
+      horarioRecogida: '15:00 - 18:30',
+      tipoCocina: 'Restaurante Fusión & Cafetería',
+      alertaWhatsapp: true,
+      alertaEmail: true
+    };
     this._initStorage();
   }
 
@@ -45,6 +61,9 @@ class DataRepository {
 
       if (!localStorage.getItem(this.STORAGE_KEY_NOTIFS)) {
         localStorage.setItem(this.STORAGE_KEY_NOTIFS, JSON.stringify(INITIAL_NOTIFICACIONES));
+      }
+      if (!localStorage.getItem(this.STORAGE_KEY_PERFIL)) {
+        localStorage.setItem(this.STORAGE_KEY_PERFIL, JSON.stringify(this._memoryPerfil));
       }
     } catch {
       // Fallback a memoria silencioso
@@ -169,6 +188,73 @@ class DataRepository {
     } catch {
       return this._memoryNotifs;
     }
+  }
+
+  getNotificacionesNoLeidasCount() {
+    const list = this.getNotificaciones();
+    return list.filter(n => !n.leida).length;
+  }
+
+  marcarNotificacionesLeidas() {
+    const list = this.getNotificaciones().map(n => ({ ...n, leida: true }));
+    if (this._isStorageAvailable()) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY_NOTIFS, JSON.stringify(list));
+      } catch {
+        this._memoryNotifs = list;
+      }
+    } else {
+      this._memoryNotifs = list;
+    }
+    return list;
+  }
+
+  limpiarNotificaciones() {
+    const vacia = [];
+    if (this._isStorageAvailable()) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY_NOTIFS, JSON.stringify(vacia));
+      } catch {
+        this._memoryNotifs = vacia;
+      }
+    } else {
+      this._memoryNotifs = vacia;
+    }
+    return vacia;
+  }
+
+  getPerfilDonante() {
+    if (!this._isStorageAvailable()) return this._memoryPerfil;
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY_PERFIL);
+      return raw ? JSON.parse(raw) : this._memoryPerfil;
+    } catch {
+      return this._memoryPerfil;
+    }
+  }
+
+  updatePerfilDonante(data) {
+    const actual = this.getPerfilDonante();
+    const actualizado = { ...actual, ...data };
+
+    if (this._isStorageAvailable()) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY_PERFIL, JSON.stringify(actualizado));
+      } catch {
+        this._memoryPerfil = actualizado;
+      }
+    } else {
+      this._memoryPerfil = actualizado;
+    }
+
+    this.addNotificacion({
+      titulo: 'Perfil comercial actualizado',
+      detalle: 'Los datos de contacto y horarios de recogida fueron guardados correctamente.',
+      hora: 'Hace un momento',
+      tipo: 'check'
+    });
+
+    return actualizado;
   }
 
   addNotificacion({ titulo, detalle, hora = 'Hace un instante', tipo = 'info' }) {
