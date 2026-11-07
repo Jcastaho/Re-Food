@@ -343,7 +343,9 @@ window.handleImageUpload = async function(event) {
     }
   } catch (error) {
     console.error('Error al procesar imagen:', error);
-    alert('No se pudo optimizar la imagen: ' + error.message);
+    if (typeof window.showToast === 'function') {
+      window.showToast('No se pudo optimizar la imagen', error.message, 'error');
+    }
     if (badgeText) badgeText.textContent = 'Error al optimizar imagen';
   }
 };
@@ -439,8 +441,17 @@ window.handleFormSubmit = function(e) {
       }
 
       window.setFormState('success');
+      if (typeof window.showToast === 'function') {
+        window.showToast(
+          editId ? '¡Lote actualizado!' : '¡Excedente publicado!',
+          `${nombre} (${cantidadKg} kg) ya está disponible en la red Re-Food.`,
+          'success'
+        );
+      }
     } catch (err) {
-      alert('Error al guardar el lote: ' + err.message);
+      if (typeof window.showToast === 'function') {
+        window.showToast('Error al guardar el lote', err.message, 'error');
+      }
       window.setFormState('active');
     }
   }, 600);

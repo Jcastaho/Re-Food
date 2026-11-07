@@ -6,10 +6,15 @@
 import { repository } from '../../data/repository.js';
 import { ImpactoUseCase } from '../../core/useCases.js';
 
-// 1. IMPACTO COMPLETO DE STITCH
+// 1. IMPACTO COMPLETO CONECTADO A MÉTRICAS REALES
 export function renderImpacto() {
   const metricas = repository.getMetricasResumen();
+  const orgs = repository.getOrganizaciones();
+  const excedentes = repository.getExcedentes();
   const imp = ImpactoUseCase.calcularMetricas(metricas.kgRecuperados);
+
+  const familiasEstimadas = Math.max(12, Math.round(imp.raciones / 3));
+  const aguaFormateada = imp.aguaAhorradaLitros.toLocaleString('es-CO');
 
   return `
   <div class="max-w-[1440px] w-full mx-auto px-space-md lg:px-space-lg py-space-md flex flex-col gap-6">
@@ -19,7 +24,7 @@ export function renderImpacto() {
         <div class="inline-flex items-center gap-2 self-start">
           <span class="w-2.5 h-2.5 rounded-full bg-[#546500]"></span>
           <span class="text-xs uppercase font-bold tracking-wider text-[#546500]">
-            Impacto Colectivo · Valle de Aburrá · Datos de Demostración
+            Impacto Colectivo · Valle de Aburrá · Datos en Tiempo Real
           </span>
         </div>
         <h1 class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">
@@ -34,8 +39,7 @@ export function renderImpacto() {
       <div class="flex flex-wrap items-center gap-2 shrink-0">
         <div class="flex items-center gap-2 bg-white border border-[#e8e9e2] px-3.5 py-2 rounded-xl text-[#1a1c18] text-xs font-semibold shadow-xs">
           <span class="material-symbols-outlined text-[18px] text-[#717975]">calendar_today</span>
-          <span>Bimestre actual (Sep - Oct 2026)</span>
-          <span class="material-symbols-outlined text-[16px] text-[#717975]">expand_more</span>
+          <span>Acumulado Red Activa 2026</span>
         </div>
         <button onclick="window.abrirModalCertificado()" class="flex items-center gap-2 bg-[#123d32] text-white px-4 py-2.5 rounded-xl hover:bg-[#0c2821] transition-all shadow-sm text-xs font-semibold cursor-pointer">
           <span class="material-symbols-outlined text-[18px] text-[#d5ee76]">file_download</span>
@@ -44,38 +48,38 @@ export function renderImpacto() {
       </div>
     </div>
 
-    <!-- Section 1: 4 Main KPI Cards de Stitch -->
+    <!-- Section 1: 4 Main KPI Cards Conectadas -->
     <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col justify-between gap-4 hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between">
-          <span class="text-xs text-[#717975] uppercase tracking-wider font-bold">Kilogramos entregados</span>
+          <span class="text-xs text-[#717975] uppercase tracking-wider font-bold">Kilogramos recuperados</span>
           <div class="w-10 h-10 rounded-xl bg-[#eeeee7] flex items-center justify-center text-[#123d32]">
             <span class="material-symbols-outlined text-[22px]">scale</span>
           </div>
         </div>
         <div class="flex flex-col">
           <div class="flex items-baseline gap-1.5">
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">284,5</span>
+            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">${metricas.kgRecuperados}</span>
             <span class="text-base text-[#00261e] font-semibold">kg</span>
           </div>
           <div class="flex items-center gap-1 mt-1 text-[#546500] text-xs font-semibold">
             <span class="material-symbols-outlined text-[16px]">trending_up</span>
-            <span>+48,2 kg este mes · Pesaje certificado en muelle</span>
+            <span>En ruta y entregados · Pesaje certificado</span>
           </div>
         </div>
       </div>
 
       <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col justify-between gap-4 hover:shadow-md transition-shadow">
         <div class="flex items-start justify-between">
-          <span class="text-xs text-[#717975] uppercase tracking-wider font-bold">Donaciones completadas</span>
+          <span class="text-xs text-[#717975] uppercase tracking-wider font-bold">Donaciones entregadas</span>
           <div class="w-10 h-10 rounded-xl bg-[#eeeee7] flex items-center justify-center text-[#123d32]">
             <span class="material-symbols-outlined text-[22px]">verified</span>
           </div>
         </div>
         <div class="flex flex-col">
           <div class="flex items-baseline gap-1.5">
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">18</span>
-            <span class="text-base text-[#414845] font-semibold">despachos</span>
+            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">${metricas.entregadas}</span>
+            <span class="text-base text-[#414845] font-semibold">de ${metricas.totalPublicados} lotes</span>
           </div>
           <div class="flex items-center gap-1 mt-1 text-[#414845] text-xs">
             <span class="material-symbols-outlined text-[16px] text-[#546500]">task_alt</span>
@@ -84,7 +88,7 @@ export function renderImpacto() {
         </div>
       </div>
 
-      <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col justify-between gap-4 hover:shadow-md transition-shadow">
+      <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col justify-between gap-4 hover:shadow-md transition-shadow cursor-pointer" onclick="window.navigate('organizaciones')">
         <div class="flex items-start justify-between">
           <span class="text-xs text-[#717975] uppercase tracking-wider font-bold">Organizaciones receptoras</span>
           <div class="w-10 h-10 rounded-xl bg-[#eeeee7] flex items-center justify-center text-[#123d32]">
@@ -93,12 +97,12 @@ export function renderImpacto() {
         </div>
         <div class="flex flex-col">
           <div class="flex items-baseline gap-1.5">
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">6</span>
+            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">${orgs.length}</span>
             <span class="text-base text-[#414845] font-semibold">sedes activas</span>
           </div>
           <div class="flex items-center gap-1 mt-1 text-[#414845] text-xs">
             <span class="material-symbols-outlined text-[16px] text-[#717975]">location_on</span>
-            <span>En Medellín, Envigado e Itagüí</span>
+            <span>En Medellín, Envigado y Bello</span>
           </div>
         </div>
       </div>
@@ -112,12 +116,12 @@ export function renderImpacto() {
         </div>
         <div class="flex flex-col">
           <div class="flex items-baseline gap-1.5">
-            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">94,8%</span>
-            <span class="text-base text-[#546500] font-bold">eficiencia</span>
+            <span class="text-3xl sm:text-4xl font-extrabold text-[#00261e] tracking-tight">${metricas.porcentajeEfectividad}%</span>
+            <span class="text-base text-[#546500] font-bold">entregados</span>
           </div>
           <div class="flex items-center gap-1 mt-1 text-[#414845] text-xs">
             <span class="material-symbols-outlined text-[16px] text-[#717975]">info</span>
-            <span>Solo 5,2% cancelado por límite biológico</span>
+            <span>Cero desperdicio en lotes despachados</span>
           </div>
         </div>
       </div>
@@ -135,7 +139,7 @@ export function renderImpacto() {
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-[#123d32] text-[24px]">soup_kitchen</span>
               <div>
-                <p class="text-sm font-bold text-[#00261e]">711 Raciones Servidas</p>
+                <p class="text-sm font-bold text-[#00261e]">${imp.raciones} Raciones Servidas</p>
                 <p class="text-xs text-[#717975]">Platos balanceados entregados en comedores comunitarios</p>
               </div>
             </div>
@@ -146,8 +150,8 @@ export function renderImpacto() {
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-[#123d32] text-[24px]">diversity_1</span>
               <div>
-                <p class="text-sm font-bold text-[#00261e]">~240 Familias Beneficiadas</p>
-                <p class="text-xs text-[#717975]">Cobertura en Comuna 10 (La Candelaria), Manrique y Santo Domingo</p>
+                <p class="text-sm font-bold text-[#00261e]">~${familiasEstimadas} Familias Beneficiadas</p>
+                <p class="text-xs text-[#717975]">Cobertura en Belén, La Candelaria, Laureles y Santo Domingo</p>
               </div>
             </div>
             <span class="text-xs font-bold text-[#546500] bg-white px-2.5 py-1 rounded-lg border border-[#e8e9e2]">Impacto Directo</span>
@@ -165,7 +169,7 @@ export function renderImpacto() {
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-emerald-700 text-[24px]">co2</span>
               <div>
-                <p class="text-sm font-bold text-[#00261e]">625,9 kg CO₂e Evitados</p>
+                <p class="text-sm font-bold text-[#00261e]">${imp.co2EvitadoKg} kg CO₂e Evitados</p>
                 <p class="text-xs text-[#717975]">Menor emisión de gas metano en el Relleno La Pradera</p>
               </div>
             </div>
@@ -176,7 +180,7 @@ export function renderImpacto() {
             <div class="flex items-center gap-3">
               <span class="material-symbols-outlined text-blue-700 text-[24px]">water_drop</span>
               <div>
-                <p class="text-sm font-bold text-[#00261e]">128.025 Litros de Agua Protegidos</p>
+                <p class="text-sm font-bold text-[#00261e]">${aguaFormateada} Litros de Agua Protegidos</p>
                 <p class="text-xs text-[#717975]">Huella hídrica de producción agrícola conservada</p>
               </div>
             </div>
@@ -185,29 +189,79 @@ export function renderImpacto() {
         </div>
       </div>
     </div>
+
+    <!-- Desglose de Lotes que aportan al Impacto -->
+    <div class="bg-white rounded-2xl p-6 border border-[#e8e9e2] shadow-sm flex flex-col gap-4">
+      <div class="flex items-center justify-between border-b border-[#f4f4ed] pb-3">
+        <h3 class="text-base font-bold text-[#00261e]">Trazabilidad de Aportes por Lote</h3>
+        <span class="text-xs text-[#717975]">${excedentes.length} lotes registrados en el sistema</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs">
+          <thead class="bg-[#f4f4ed] text-[#717975] uppercase">
+            <tr>
+              <th class="p-3">Lote / Alimento</th>
+              <th class="p-3">Restaurante Donante</th>
+              <th class="p-3">Fundación Destino</th>
+              <th class="p-3 text-center">Peso</th>
+              <th class="p-3 text-center">Raciones</th>
+              <th class="p-3 text-right">CO₂e Evitado</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-[#eeeee7]">
+            ${excedentes.map(e => {
+              const kg = parseFloat(e.cantidadKg) || 0;
+              return `
+              <tr class="hover:bg-[#fafaf3] cursor-pointer" onclick="window.navigate('detalle-donacion?id=${e.id}')">
+                <td class="p-3 font-bold text-[#00261e]">${e.id} · ${e.nombre}</td>
+                <td class="p-3 text-[#414845]">${e.establecimiento}</td>
+                <td class="p-3 font-semibold text-[#123d32]">${e.organizacionDestino || 'En asignación'}</td>
+                <td class="p-3 text-center font-bold">${kg} kg</td>
+                <td class="p-3 text-center text-[#546500] font-semibold">${Math.round(kg * 2.5)}</td>
+                <td class="p-3 text-right text-emerald-700 font-bold">${Math.round(kg * 2.2 * 10) / 10} kg</td>
+              </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
   `;
 }
 
-// 2. DETALLE BANCO DE ALIMENTOS COMPLETO DE STITCH
-export function renderDetalleBanco() {
+// 2. FICHA DINÁMICA DE ORGANIZACIÓN RECEPTORA
+export function renderDetalleBanco(params) {
+  const allOrgs = repository.getOrganizaciones();
+  const targetOrgId = (params && typeof params.get === 'function') ? params.get('id') : null;
+  const org = targetOrgId ? repository.getOrganizacionById(targetOrgId) : allOrgs[0];
+
+  const palabras = org.nombre.split(' ').filter(p => p.length > 2);
+  const iniciales = palabras.length >= 2
+    ? (palabras[0][0] + palabras[1][0]).toUpperCase()
+    : org.nombre.substring(0, 2).toUpperCase();
+
   return `
   <div class="max-w-[1440px] w-full mx-auto px-space-md lg:px-space-lg py-space-md flex flex-col gap-6">
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
-      <div class="flex items-center gap-2 text-[#414845] text-xs">
+      <div class="flex items-center gap-2 text-[#414845] text-xs flex-wrap">
         <a class="inline-flex items-center gap-1.5 text-[#00261e] hover:text-[#123d32] font-semibold transition-colors group" href="#organizaciones">
           <span class="material-symbols-outlined text-[18px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
           <span>Volver a organizaciones</span>
         </a>
         <span class="text-[#c0c8c4]">/</span>
-        <span class="text-[#717975] uppercase tracking-wider">Directorio AMVA</span>
+        <span class="text-[#717975] uppercase tracking-wider">Directorio Valle de Aburrá</span>
         <span class="text-[#c0c8c4]">/</span>
-        <span class="text-[#546500] font-semibold">Banco de Alimentos de Medellín</span>
+        <span class="text-[#546500] font-semibold">${org.nombre}</span>
       </div>
-      <div class="flex items-center gap-2">
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <select onchange="window.navigate('banco-alimentos?id=' + this.value)" class="bg-white border border-[#c0c8c4] text-xs font-semibold px-3 py-1.5 rounded-xl focus:outline-none focus:border-[#123d32] cursor-pointer shadow-2xs">
+          ${allOrgs.map(o => `<option value="${o.id}" ${o.id === org.id ? 'selected' : ''}>Ver sede: ${o.nombre}</option>`).join('')}
+        </select>
         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white border border-[#e8e9e2] text-[#00261e] text-xs font-semibold shadow-xs">
           <span class="w-2 h-2 rounded-full bg-[#546500]"></span>
-          ENTIDAD VERIFICADA INVIMA • DIAN ART. 125
+          ENTIDAD VERIFICADA • DIAN ART. 125
         </span>
       </div>
     </div>
@@ -216,8 +270,8 @@ export function renderDetalleBanco() {
       <div class="flex flex-col sm:flex-row gap-5 items-start min-w-0 z-10">
         <div class="relative shrink-0">
           <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-[#123d32] text-white flex flex-col items-center justify-center shadow-md relative overflow-hidden">
-            <span class="text-3xl font-extrabold tracking-tight text-[#d5ee76]">BA</span>
-            <span class="text-[9px] uppercase tracking-widest text-[#a4d0c0] font-semibold">Medellín</span>
+            <span class="text-3xl font-extrabold tracking-tight text-[#d5ee76]">${iniciales}</span>
+            <span class="text-[9px] uppercase tracking-widest text-[#a4d0c0] font-semibold">${org.municipio}</span>
             <div class="absolute bottom-0 inset-x-0 h-1 bg-[#d5ee76]"></div>
           </div>
           <span class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#d5ee76] text-[#171e00] flex items-center justify-center shadow">
@@ -228,43 +282,43 @@ export function renderDetalleBanco() {
         <div class="flex flex-col gap-2 min-w-0">
           <div class="flex flex-wrap items-center gap-2">
             <span class="px-2.5 py-0.5 rounded-full bg-[#eeeee7] text-[#414845] text-xs font-semibold">
-              Banco de alimentos (ESAL sin ánimo de lucro)
+              ${org.tipo} (ESAL sin ánimo de lucro)
             </span>
             <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#eeeee7] text-[#414845] text-xs">
               <span class="material-symbols-outlined text-[14px] text-[#123d32]">location_on</span>
-              Medellín · Comuna 10 (La Candelaria) / Barrio Colombia
+              ${org.municipio} · ${org.direccion}
             </span>
           </div>
-          <h1 class="text-3xl font-extrabold text-[#00261e] tracking-tight">
-            Banco de Alimentos de Medellín
+          <h1 class="text-2xl sm:text-3xl font-extrabold text-[#00261e] tracking-tight">
+            ${org.nombre}
           </h1>
           <p class="text-sm text-[#414845] max-w-3xl leading-relaxed">
-            Centro metropolitano de acopio, verificación bromatológica y redistribución a gran escala para comedores comunitarios, hogares infantiles y población vulnerable del Valle de Aburrá.
+            ${org.descripcion} Cuenta con protocolos activos de revisión de calidad e higiene y almacenamiento seguro para redistribución social en ${org.municipio}.
           </p>
 
           <div class="flex flex-wrap items-center gap-2 pt-1">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#f4f4ed] text-[#00261e] text-xs font-semibold">
               <span class="w-2.5 h-2.5 rounded-full bg-[#546500] animate-pulse"></span>
-              Recepción activa hoy (07:00 – 18:00)
+              Recepción activa hoy (07:00 – 18:30)
             </span>
             <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#f4f4ed] text-[#414845] text-xs">
-              <span class="material-symbols-outlined text-[15px] text-[#546500]">pace</span>
-              ~25 min de aceptación promedio
+              <span class="material-symbols-outlined text-[15px] text-[#546500]">call</span>
+              ${org.telefono}
             </span>
             <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#f4f4ed] text-[#414845] text-xs">
               <span class="material-symbols-outlined text-[15px] text-[#123d32]">local_shipping</span>
-              3 Flotas refrigeradas RE-FOOD
+              Distancia desde Provenza: ${org.distanciaKm} km
             </span>
           </div>
         </div>
       </div>
 
       <div class="flex flex-col gap-2.5 shrink-0 z-10 w-full lg:w-auto">
-        <button onclick="window.navigate('publicar')" class="h-11 px-5 rounded-xl bg-[#00261e] hover:bg-[#123d32] text-white text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-sm">
-          <span class="material-symbols-outlined text-[18px]">rule</span>
-          <span>Programar Entrega a este Banco</span>
+        <button onclick="window.navigate('publicar?org=${encodeURIComponent(org.nombre)}')" class="h-11 px-5 rounded-xl bg-[#00261e] hover:bg-[#123d32] text-white text-xs font-bold flex items-center justify-center gap-2 transition-all shadow-sm cursor-pointer">
+          <span class="material-symbols-outlined text-[18px] text-[#d5ee76]">volunteer_activism</span>
+          <span>Programar Entrega a esta Sede</span>
         </button>
-        <button onclick="alert('Certificado DIAN Art. 125: Entidad autorizada para emitir certificados de donación deducibles del impuesto sobre la renta.')" class="h-11 px-5 rounded-xl bg-[#eeeee7] text-[#00261e] hover:bg-[#e8e9e2] text-xs font-bold flex items-center justify-center gap-2 transition-all">
+        <button onclick="window.showToast && window.showToast('Certificado DIAN Art. 125 E.T.', '${org.nombre} está autorizada para emitir certificados de donación deducibles de renta.', 'info')" class="h-11 px-5 rounded-xl bg-[#eeeee7] text-[#00261e] hover:bg-[#e8e9e2] text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer">
           <span class="material-symbols-outlined text-[18px] text-[#546500]">workspace_premium</span>
           <span>Certificado DIAN Art. 125</span>
         </button>
@@ -274,20 +328,20 @@ export function renderDetalleBanco() {
     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <div class="bg-white rounded-2xl p-5 border border-[#e8e9e2] shadow-sm flex flex-col justify-between gap-3">
         <div class="flex items-center justify-between text-[#717975]">
-          <span class="text-xs uppercase tracking-wider font-bold">Capacidad frigorífica</span>
+          <span class="text-xs uppercase tracking-wider font-bold">Capacidad de recibo</span>
           <div class="w-8 h-8 rounded-lg bg-[#eeeee7] flex items-center justify-center text-[#123d32]">
             <span class="material-symbols-outlined text-[18px]">ac_unit</span>
           </div>
         </div>
         <div>
           <div class="flex items-baseline gap-1">
-            <span class="text-3xl font-extrabold text-[#00261e]">1.200</span>
-            <span class="text-sm font-semibold text-[#414845]">kg</span>
+            <span class="text-3xl font-extrabold text-[#00261e]">${org.capacidadKgDia}</span>
+            <span class="text-sm font-semibold text-[#414845]">kg/día</span>
           </div>
-          <p class="text-xs text-[#414845] mt-1">Cámaras 0°C a 4°C y congelador -18°C</p>
+          <p class="text-xs text-[#414845] mt-1">Cuarto frío 2°C a 4°C y bodega seca</p>
         </div>
         <div class="w-full bg-[#eeeee7] rounded-full h-1.5 overflow-hidden">
-          <div class="bg-[#546500] h-full rounded-full" style="width: 62%;"></div>
+          <div class="bg-[#546500] h-full rounded-full" style="width: 68%;"></div>
         </div>
       </div>
 
@@ -300,34 +354,34 @@ export function renderDetalleBanco() {
         </div>
         <div>
           <div class="flex items-baseline gap-1">
-            <span class="text-3xl font-extrabold text-[#00261e]">~3.500</span>
-            <span class="text-sm font-semibold text-[#414845]">pers/día</span>
+            <span class="text-3xl font-extrabold text-[#00261e]">${org.beneficiarios}</span>
+            <span class="text-sm font-semibold text-[#414845]">personas/día</span>
           </div>
-          <p class="text-xs text-[#414845] mt-1">82 comedores aliados en el AMVA</p>
+          <p class="text-xs text-[#414845] mt-1">Atención directa en ${org.municipio}</p>
         </div>
         <div class="flex items-center gap-1.5 text-[#546500] text-xs font-semibold">
-          <span class="material-symbols-outlined text-[15px]">nest_multi_room</span>
-          <span>Cobertura en 7 municipios</span>
+          <span class="material-symbols-outlined text-[15px]">soup_kitchen</span>
+          <span>Aprox. ${Math.round(org.capacidadKgDia * 2.5)} raciones diarias</span>
         </div>
       </div>
 
       <div class="bg-white rounded-2xl p-5 border border-[#e8e9e2] shadow-sm flex flex-col justify-between gap-3">
         <div class="flex items-center justify-between text-[#717975]">
-          <span class="text-xs uppercase tracking-wider font-bold">Tiempo de Recepción</span>
+          <span class="text-xs uppercase tracking-wider font-bold">Distancia y Recorrido</span>
           <div class="w-8 h-8 rounded-lg bg-[#eeeee7] flex items-center justify-center text-[#123d32]">
             <span class="material-symbols-outlined text-[18px]">schedule</span>
           </div>
         </div>
         <div>
           <div class="flex items-baseline gap-1">
-            <span class="text-3xl font-extrabold text-[#00261e]">~25</span>
-            <span class="text-sm font-semibold text-[#414845]">minutos</span>
+            <span class="text-3xl font-extrabold text-[#00261e]">${org.distanciaKm}</span>
+            <span class="text-sm font-semibold text-[#414845]">km</span>
           </div>
-          <p class="text-xs text-[#414845] mt-1">Descarga ágil con muelles independientes</p>
+          <p class="text-xs text-[#414845] mt-1">Entrega ágil con zona de recepción directa</p>
         </div>
         <div class="flex items-center gap-1.5 text-[#123d32] text-xs font-semibold">
           <span class="material-symbols-outlined text-[15px]">speed</span>
-          <span>Proceso prioritario Re-Food</span>
+          <span>Ruta prioritaria Re-Food</span>
         </div>
       </div>
 
@@ -339,12 +393,12 @@ export function renderDetalleBanco() {
           </div>
         </div>
         <div>
-          <span class="text-xl font-extrabold text-[#00261e] block">HACCP Nivel 4</span>
-          <p class="text-xs text-[#414845] mt-1">Laboratorio de microbiología propio</p>
+          <span class="text-lg font-extrabold text-[#00261e] block">${org.certificacion}</span>
+          <p class="text-xs text-[#414845] mt-1">Inspección de calidad al recibir</p>
         </div>
         <div class="flex items-center gap-1.5 text-emerald-700 text-xs font-semibold">
           <span class="material-symbols-outlined text-[15px]">verified</span>
-          <span>Concepto Favorable INVIMA</span>
+          <span>Estado: ${org.estadoVerificacion}</span>
         </div>
       </div>
     </section>
@@ -372,7 +426,7 @@ export function renderGuiaConservacion() {
             Guía de conservación
           </h1>
           <p class="text-sm sm:text-base text-[#414845] leading-relaxed">
-            Lo que las organizaciones sociales necesitan saber para recibir tu comida con total certeza, trazabilidad y dignidad bromatológica.
+            Lo que las organizaciones sociales necesitan saber para recibir tu comida con total certeza, frescura y calidad higiénica.
           </p>
         </div>
 
@@ -542,7 +596,7 @@ export function renderRutaLogistica(params) {
     badgeRutaClass = 'bg-[#d5ee76]/60 text-[#171e00] border-[#b9d15d]';
     estadoRutaText = 'Entrega Completada y Certificada';
   } else if (isPublicado || isAsignado) {
-    etaText = 'En espera de muelle';
+    etaText = 'En espera de recogida';
     badgeRutaClass = 'bg-blue-50 text-blue-900 border-blue-200';
     estadoRutaText = isAsignado ? 'Ruta Asignada · Esperando Recogida' : 'Lote Publicado · Esperando Asignación';
   }
@@ -560,7 +614,7 @@ export function renderRutaLogistica(params) {
           Ruta Logística: ${item.establecimiento} → ${item.organizacionDestino || 'Banco de Alimentos'}
         </h1>
         <p class="text-sm text-[#414845] mt-1">
-          Monitoreo en tiempo real de la furgoneta isotérmica Re-Food #4 para el lote <strong class="text-[#00261e] font-mono">${item.id}</strong>.
+          Monitoreo en tiempo real del vehículo refrigerado Re-Food #4 para el lote <strong class="text-[#00261e] font-mono">${item.id}</strong>.
         </p>
       </div>
 
@@ -635,10 +689,10 @@ export function renderRutaLogistica(params) {
             </div>
             <div class="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-xl shadow-md border border-[#e8e9e2] flex flex-col gap-1 max-w-md">
               <span class="text-xs font-bold text-[#00261e] uppercase tracking-wider">
-                ${isEntregado ? 'Llegada y descarga en muelle completada' : 'Corredor vial Av. El Poblado → Av. Las Vegas'}
+                ${isEntregado ? 'Llegada y entrega en la fundación completada' : 'Corredor vial Av. El Poblado → Av. Las Vegas'}
               </span>
               <span class="text-xs text-[#546500] font-semibold">
-                ${isEntregado ? 'Acta de pesaje certificada firmada digitalmente' : 'Control telemático: Temperatura en cabina 4.2°C · Cadena de frío asegurada'}
+                ${isEntregado ? 'Acta de pesaje certificada firmada digitalmente' : 'Monitoreo en vivo: Temperatura en vehículo 4.2°C · Cadena de frío asegurada'}
               </span>
             </div>
           </div>
@@ -664,10 +718,10 @@ export function renderRutaLogistica(params) {
                 ${isAsignado || isEnRuta || isEntregado ? '✓' : '2'}
               </span>
               <div>
-                <p class="text-sm font-bold text-[#00261e]">2. Asignación Logística y Recogida en Muelle</p>
+                <p class="text-sm font-bold text-[#00261e]">2. Asignación Logística y Recogida en el Restaurante</p>
                 <p class="text-xs text-[#717975]">
                   ${isAsignado || isEnRuta || isEntregado 
-                    ? `Furgón Eco-04 asignado. Destino programado: ${item.organizacionDestino || 'Banco de Alimentos'}.` 
+                    ? `Vehículo refrigerado Eco-04 asignado. Destino programado: ${item.organizacionDestino || 'Banco de Alimentos'}.` 
                     : 'Esperando asignación de ruta de transporte.'}
                 </p>
               </div>
@@ -682,7 +736,7 @@ export function renderRutaLogistica(params) {
                 <p class="text-sm font-bold text-[#00261e]">3. Tránsito con Control Térmico en Vivo</p>
                 <p class="text-xs text-[#717975]">
                   ${isEnRuta 
-                    ? 'En camino hacia la fundación. Temperatura en cabina monitoreada telemáticamente (4°C).' 
+                    ? 'En camino hacia la fundación. Temperatura del vehículo monitoreada en tiempo real (4°C).' 
                     : isEntregado ? 'Tránsito completado con éxito sin ruptura de la cadena de frío.' : 'Pendiente de inicio de trayecto.'}
                 </p>
               </div>
@@ -697,8 +751,8 @@ export function renderRutaLogistica(params) {
                 <p class="text-sm font-bold ${isEntregado ? 'text-[#00261e]' : 'text-[#717975]'}">4. Entrega y Pesaje en ${item.organizacionDestino || 'Fundación Receptora'}</p>
                 <p class="text-xs text-[#717975]">
                   ${isEntregado 
-                    ? `Recibido conforme en muelle. Acta digital expedida y hash de custodia generado.` 
-                    : 'Recepción bromatológica y firma digital al momento de la llegada.'}
+                    ? `Recibido conforme en la sede. Acta digital expedida y código de custodia generado.` 
+                    : 'Revisión de calidad e higiene y firma digital al momento de la llegada.'}
                 </p>
               </div>
             </div>
@@ -715,7 +769,7 @@ export function renderRutaLogistica(params) {
               <span class="material-symbols-outlined text-[28px]">electric_moped</span>
             </div>
             <div>
-              <p class="font-bold text-sm text-[#00261e]">Furgón Isotérmico Eco-04</p>
+              <p class="font-bold text-sm text-[#00261e]">Vehículo Refrigerado Eco-04</p>
               <p class="text-xs text-[#546500] font-semibold">Placas: KLO-892 (100% Eléctrico)</p>
             </div>
           </div>
@@ -739,10 +793,10 @@ export function renderRutaLogistica(params) {
         <div class="bg-[#00261e] text-white rounded-2xl p-6 shadow-md flex flex-col gap-3">
           <div class="flex items-center gap-2 text-[#d5ee76]">
             <span class="material-symbols-outlined text-[20px]">thermostat</span>
-            <span class="text-xs uppercase font-bold tracking-wider">Sensor Telemático en Tiempo Real</span>
+            <span class="text-xs uppercase font-bold tracking-wider">Control de Temperatura en Tiempo Real</span>
           </div>
           <p class="text-xs text-[#bfecdc] leading-relaxed">
-            La furgoneta isotérmica transmite datos de temperatura cada 30 segundos para garantizar que los alimentos no crucen zonas de riesgo térmico (Res. 2674 / 2013).
+            El vehículo refrigerado reporta datos de temperatura cada 30 segundos para garantizar que los alimentos se mantengan frescos y seguros durante todo el recorrido (Res. 2674 / 2013).
           </p>
         </div>
       </div>
@@ -1030,7 +1084,7 @@ export function renderConfiguracion() {
         <div class="flex items-center justify-between pb-3 border-b border-[#f4f4ed]">
           <div>
             <h4 class="text-sm font-bold text-[#00261e]">Alertas de WhatsApp en Tiempo Real</h4>
-            <p class="text-xs text-[#717975]">Notificar al chef cuando la furgoneta isotérmica esté a 10 minutos de Provenza.</p>
+            <p class="text-xs text-[#717975]">Notificar al chef cuando el vehículo refrigerado esté a 10 minutos de Provenza.</p>
           </div>
           <input type="checkbox" id="cfg-chk-whatsapp" ${perfil.alertaWhatsapp ? 'checked' : ''} class="w-5 h-5 accent-[#123d32] cursor-pointer" />
         </div>
@@ -1050,7 +1104,7 @@ export function renderConfiguracion() {
     <!-- Contenido Tab 3: Horarios y Logística -->
     <div id="config-tab-logistica" class="config-tab-pane hidden flex flex-col gap-6">
       <div class="bg-white rounded-2xl p-6 sm:p-8 border border-[#e8e9e2] shadow-sm max-w-3xl flex flex-col gap-5">
-        <h3 class="text-base font-bold text-[#00261e] border-b border-[#f4f4ed] pb-3">Ventanas de Recogida y Muelle</h3>
+        <h3 class="text-base font-bold text-[#00261e] border-b border-[#f4f4ed] pb-3">Horarios y Punto de Recogida</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-bold uppercase text-[#717975]">Horario preferencial de recogida</label>
@@ -1058,7 +1112,7 @@ export function renderConfiguracion() {
           </div>
           <div class="flex flex-col gap-1.5">
             <label class="text-xs font-bold uppercase text-[#717975]">Punto de entrega en el local</label>
-            <input type="text" value="Muelle de descargue calle 8A con cra 35" class="px-4 py-2.5 rounded-xl border border-[#c0c8c4] text-xs bg-white text-[#1a1c18] focus:outline-none focus:border-[#123d32]" />
+            <input type="text" value="Entrada de cocina / Zona de entrega Calle 8A con Cra 35" class="px-4 py-2.5 rounded-xl border border-[#c0c8c4] text-xs bg-white text-[#1a1c18] focus:outline-none focus:border-[#123d32]" />
           </div>
         </div>
         <button onclick="window.handleGuardarLogistica()" class="self-end px-6 py-2.5 bg-[#00261e] hover:bg-[#123d32] text-white text-xs font-semibold rounded-xl transition-all shadow-sm">
@@ -1074,10 +1128,19 @@ export function renderConfiguracion() {
 window.cambiarEstadoDesdeRuta = function(id, nuevoEstado) {
   try {
     repository.updateEstadoExcedente(id, nuevoEstado);
+    if (typeof window.showToast === 'function') {
+      window.showToast(
+        `Estado actualizado: ${nuevoEstado}`,
+        nuevoEstado === 'Entregado' ? 'Entrega completada y acta oficial habilitada.' : 'El vehículo refrigerado ha iniciado el recorrido.',
+        'success'
+      );
+    }
     // Recargar vista de ruta para reflejar el estado actualizado
     window.navigate(`ruta-logistica?id=${id}`);
   } catch (err) {
-    alert('Error al actualizar ruta: ' + err.message);
+    if (typeof window.showToast === 'function') {
+      window.showToast('Error al actualizar ruta', err.message, 'error');
+    }
   }
 };
 
@@ -1209,7 +1272,7 @@ window.abrirModalCertificado = function(loteId) {
             <tr>
               <th class="p-2.5">Código Lote</th>
               <th class="p-2.5">Descripción Alimento</th>
-              <th class="p-2.5 text-center">Peso Neto</th>
+              <th class="p-2.5 text-center">Peso Verificado</th>
               <th class="p-2.5 text-center">Raciones</th>
               <th class="p-2.5 text-right">CO₂e Evitado</th>
             </tr>
@@ -1218,13 +1281,21 @@ window.abrirModalCertificado = function(loteId) {
             <tr>
               <td class="p-2.5 font-mono font-bold">${item.id}</td>
               <td class="p-2.5 font-medium">${item.nombre} (${item.categoria})</td>
-              <td class="p-2.5 text-center font-bold text-[#00261e]">${item.cantidadKg} kg</td>
+              <td class="p-2.5 text-center font-bold text-[#00261e]">${item.pesoRecibidoKg || item.cantidadKg} kg</td>
               <td class="p-2.5 text-center font-bold text-[#546500]">${raciones} raciones</td>
               <td class="p-2.5 text-right font-bold text-emerald-700">${co2Evitado} kg</td>
             </tr>
           </tbody>
         </table>
       </div>
+
+      ${item.tempLlegada || item.notasRecepcion ? `
+      <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200 text-xs flex flex-col gap-1">
+        <span class="font-bold text-[#00261e]">✓ Verificación en Punto de Recepción (${item.organizacionDestino || 'Fundación Receptora'}):</span>
+        <span class="text-[#414845]">Temperatura de llegada: <strong>${item.tempLlegada || item.temperatura}</strong> · Calidad: <strong>${item.estadoCalidad || 'Óptimo'}</strong></span>
+        ${item.notasRecepcion ? `<span class="text-[#546500] italic">Observación: "${item.notasRecepcion}"</span>` : ''}
+      </div>
+      ` : ''}
 
       <!-- Hash Criptográfico y Firmas -->
       <div class="flex flex-col gap-2 pt-2 border-t border-[#eeeee7]">
@@ -1270,27 +1341,93 @@ window.cerrarModalCertificado = function() {
   if (el) el.remove();
 };
 
-// 8. LANDING INSTITUCIONAL
+// 8. LANDING INSTITUCIONAL COMPLETA (#institucional)
 export function renderLanding() {
+  const metricas = repository.getMetricasResumen();
+  const imp = ImpactoUseCase.calcularMetricas(metricas.kgRecuperados);
+  const orgs = repository.getOrganizaciones();
+  const currentRole = (typeof localStorage !== 'undefined' && localStorage.getItem('refood_role')) || 'donante';
+
   return `
-  <div class="max-w-[1440px] w-full mx-auto px-space-md lg:px-space-lg py-space-lg flex flex-col gap-10">
-    <div class="text-center max-w-3xl mx-auto flex flex-col items-center gap-4 pt-4">
-      <span class="px-3.5 py-1.5 rounded-full bg-[#d5ee76]/50 text-[#171e00] text-xs font-bold uppercase tracking-widest border border-[#b9d15d]">
-        Red Metropolitana de Economía Circular Alimentaria
+  <div class="max-w-[1360px] w-full mx-auto px-space-md lg:px-space-lg py-space-lg flex flex-col gap-10">
+    <!-- Hero Institucional -->
+    <div class="bg-[#00261e] text-white rounded-3xl p-8 sm:p-12 shadow-xl relative overflow-hidden flex flex-col items-center text-center gap-5">
+      <span class="px-3.5 py-1.5 rounded-full bg-[#d5ee76] text-[#171e00] text-xs font-bold uppercase tracking-widest">
+        Red Metropolitana de Rescate Alimentario · Valle de Aburrá
       </span>
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-[#00261e] tracking-tight">
-        Re-Food Valle de Aburrá
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight max-w-3xl leading-tight">
+        Lo que sobra aquí, <span class="text-[#d5ee76] underline decoration-[#d5ee76]/50">alimenta allá.</span>
       </h1>
-      <p class="text-base text-[#414845] leading-relaxed">
-        Conectamos a hoteles, restaurantes y panaderías con comedores comunitarios para erradicar el desperdicio de comida y garantizar seguridad alimentaria en Medellín.
+      <p class="text-sm sm:text-base text-[#bfecdc] max-w-2xl leading-relaxed">
+        Re-Food conecta los excedentes frescos de restaurantes, hoteles y panaderías de Medellín con comedores comunitarios y fundaciones sociales verificadas, garantizando transporte refrigerado y certificado tributario DIAN.
       </p>
-      <div class="flex gap-3">
-        <button onclick="window.navigate('resumen')" class="px-6 py-3 rounded-xl bg-[#00261e] text-white font-semibold text-sm hover:bg-[#123d32] shadow-md transition-all">
-          Ir al Panel de Donante
+      <div class="flex flex-wrap justify-center gap-3 pt-2">
+        <button onclick="window.navigate('${currentRole === 'receptor' ? 'receptor-dashboard' : 'resumen'}')" class="px-6 py-3 rounded-xl bg-[#d5ee76] text-[#171e00] font-extrabold text-xs sm:text-sm hover:bg-[#c2f362] shadow-md transition-all cursor-pointer">
+          Volver a mi Panel Principal
         </button>
-        <button onclick="window.navigate('publicar')" class="px-6 py-3 rounded-xl bg-[#d5ee76] text-[#171e00] font-semibold text-sm hover:bg-[#c2f362] transition-all">
-          Publicar Donación
+        <button onclick="window.navigate('organizaciones')" class="px-6 py-3 rounded-xl bg-white/10 text-white border border-white/20 font-semibold text-xs sm:text-sm hover:bg-white/20 transition-all cursor-pointer">
+          Ver Fundaciones Aliadas (${orgs.length})
         </button>
+      </div>
+    </div>
+
+    <!-- Indicadores en Vivo de la Red -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm text-center">
+        <span class="text-3xl font-extrabold text-[#00261e] block">${metricas.kgRecuperados} kg</span>
+        <span class="text-xs font-bold uppercase text-[#717975] mt-1 block">Alimentos Rescatados</span>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm text-center">
+        <span class="text-3xl font-extrabold text-[#546500] block">${imp.raciones}</span>
+        <span class="text-xs font-bold uppercase text-[#717975] mt-1 block">Platos Servidos</span>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm text-center">
+        <span class="text-3xl font-extrabold text-emerald-700 block">${imp.co2EvitadoKg} kg</span>
+        <span class="text-xs font-bold uppercase text-[#717975] mt-1 block">CO₂e Evitado</span>
+      </div>
+      <div class="bg-white p-5 rounded-2xl border border-[#e8e9e2] shadow-sm text-center">
+        <span class="text-3xl font-extrabold text-[#123d32] block">${orgs.length} sedes</span>
+        <span class="text-xs font-bold uppercase text-[#717975] mt-1 block">Comedores Verificados</span>
+      </div>
+    </div>
+
+    <!-- Cómo Funciona en 3 Pasos -->
+    <div class="flex flex-col gap-5">
+      <div class="text-center">
+        <span class="text-xs uppercase font-bold tracking-widest text-[#546500]">Operación Simple y Transparente</span>
+        <h2 class="text-2xl font-extrabold text-[#00261e] mt-1">¿Cómo funciona el rescate en Re-Food?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col gap-3">
+          <div class="w-11 h-11 rounded-xl bg-[#d5ee76]/50 text-[#123d32] flex items-center justify-center font-extrabold text-base">
+            1
+          </div>
+          <h3 class="font-bold text-base text-[#00261e]">El restaurante publica el lote</h3>
+          <p class="text-xs text-[#414845] leading-relaxed">
+            La cocina registra el alimento disponible, sube una foto que se optimiza automáticamente y valida la temperatura según la norma INVIMA (Res. 2674 de 2013).
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col gap-3">
+          <div class="w-11 h-11 rounded-xl bg-[#d5ee76]/50 text-[#123d32] flex items-center justify-center font-extrabold text-base">
+            2
+          </div>
+          <h3 class="font-bold text-base text-[#00261e]">Recogida en vehículo refrigerado</h3>
+          <p class="text-xs text-[#414845] leading-relaxed">
+            Una fundación cercana solicita el alimento (o el restaurante se lo asigna) y el vehículo refrigerado lo recoge cuidando la cadena de frío en todo el Valle de Aburrá.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-[#e8e9e2] shadow-sm flex flex-col gap-3">
+          <div class="w-11 h-11 rounded-xl bg-[#d5ee76]/50 text-[#123d32] flex items-center justify-center font-extrabold text-base">
+            3
+          </div>
+          <h3 class="font-bold text-base text-[#00261e]">Entrega en comedor y Acta DIAN</h3>
+          <p class="text-xs text-[#414845] leading-relaxed">
+            El comedor social verifica el peso en báscula y la temperatura al recibir, distribuye las raciones a las familias y emite el Certificado de Donación (Art. 125 E.T.).
+          </p>
+        </div>
       </div>
     </div>
   </div>

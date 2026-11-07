@@ -322,8 +322,13 @@ window.cambiarEstadoRapido = function(id, nuevoEstado) {
     repository.updateEstadoExcedente(id, nuevoEstado);
     window.actualizarListaExcedentes();
     window.actualizarContadores();
+    if (typeof window.showToast === 'function') {
+      window.showToast(`Lote ${id} actualizado`, `Nuevo estado: ${nuevoEstado}`, 'info');
+    }
   } catch (err) {
-    alert('Error al actualizar estado: ' + err.message);
+    if (typeof window.showToast === 'function') {
+      window.showToast('Error al actualizar estado', err.message, 'error');
+    }
   }
 };
 

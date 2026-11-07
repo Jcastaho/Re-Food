@@ -48,27 +48,27 @@ Diseñada para que hoteles, panaderías y restaurantes gestionen sus excedentes 
 * **Directorio y Asignación de Fundaciones (`#organizaciones`):**
   * Filtro por municipio (*Medellín, Envigado, Bello*) y asignación de lotes disponibles con 1 clic.
 * **Trazabilidad y Ruta Logística (`#ruta-logistica`):**
-  * Monitoreo contextual por lote del furgón isotérmico con control de temperatura en tránsito (4°C).
+  * Monitoreo contextual por lote del vehículo refrigerado con control de temperatura en tránsito (4°C).
 * **Certificado Oficial de Donación DIAN (`#detalle-donacion`):**
-  * Generación y descarga/impresión de acta oficial con hash SHA-256 bajo el Artículo 125 del Estatuto Tributario y Ley 1990 de 2019.
+  * Generación y descarga/impresión de acta oficial con código SHA-256 bajo el Artículo 125 del Estatuto Tributario y Ley 1990 de 2019.
 
 ---
 
 ### 2. 🤝 Vista Receptora (Fundación / Comedor Comunitario)
-Diseñada para que comedores sociales y bancos de alimentos gestionen el acopio, verifiquen descargues y certifiquen entregas:
+Diseñada para que comedores sociales y bancos de alimentos gestionen el acopio, verifiquen la entrega de alimentos y certifiquen donaciones:
 
 * **Centro de Acopio Social (`#receptor-dashboard`):**
-  * Indicadores en vivo: Kilos recibidos hoy, raciones servidas, lotes en camino y capacidad disponible en bodega/cuarto frío.
+  * Indicadores en vivo: Kilos recibidos hoy, raciones servidas, pedidos en camino y capacidad disponible en bodega/cuarto frío.
 * **Muro de Rescate · Alimentos Disponibles (`#receptor-disponibles`):**
-  * Catálogo en tiempo real de comida recién publicada por restaurantes con botón **"Solicitar para nuestro comedor"** para coordinar la recogida automática.
-* **Recepción en Muelle y Control Bromatológico (`#receptor-muelle`):**
-  * Monitoreo de furgonetas en camino y confirmación de descargue en bodega con registro de temperatura de llegada.
+  * Catálogo en tiempo real con filtros por categoría y buscador de comida recién publicada por restaurantes, con botón **"Solicitar este lote para nuestro comedor"** para coordinar la recogida.
+* **Recepción de Alimentos y Control de Calidad (`#receptor-muelle`):**
+  * Monitoreo de vehículos en camino y formulario interactivo de verificación al recibir (peso verificado en báscula, temperatura de llegada y estado de empaque).
 * **Libro de Actas y Certificados Emitidos (`#receptor-actas`):**
   * Historial de certificados tributarios emitidos a favor de los restaurantes donantes, listos para descargar o imprimir.
 * **Población Beneficiaria (`#receptor-impacto`):**
-  * Trazabilidad social de platos entregados a primera infancia, adultos mayores y madres cabeza de familia en Belén y la Comuna 16.
+  * Registro interactivo de entregas diarias de raciones y trazabilidad social de platos entregados a primera infancia, adultos mayores y madres cabeza de familia en Belén y la Comuna 16.
 * **Ficha Institucional Receptora (`#receptor-perfil`):**
-  * Capacidad diaria de bodega (420 kg/día), horarios de descargue y contacto operativo.
+  * Configuración editable y persistente de la capacidad diaria de bodega (kg/día), horarios de recepción, estado del punto de entrega (*Abierto / Cerrado*) y contacto del coordinador.
 
 ---
 
@@ -138,5 +138,5 @@ python -m http.server 8000
 ## 📜 Marco Normativo Colombiano Aplicado
 
 * **Ley 1990 de 2019:** Política de Prevención y Reducción de Pérdidas y Desperdicios de Alimentos en Colombia.
-* **Resolución 2674 de 2013 (INVIMA):** Buenas prácticas de manufactura y control térmico en transporte isotérmico.
+* **Resolución 2674 de 2013 (INVIMA):** Buenas prácticas de manufactura y control térmico en transporte refrigerado.
 * **Artículo 125 del Estatuto Tributario:** Beneficio de deducción y descuento del impuesto de renta por donaciones de alimentos a entidades sin ánimo de lucro certificadas (ESAL).

@@ -151,7 +151,7 @@ function renderOrgsGrid(items) {
       </span>
 
       <div class="flex items-center gap-2 shrink-0">
-        <button onclick="window.navigate('banco-alimentos')" class="px-3 py-1.5 rounded-lg border border-[#c0c8c4] hover:bg-[#eeeee7] text-[#1a1c18] text-xs font-semibold transition-all">
+        <button onclick="window.navigate('banco-alimentos?id=${org.id}')" class="px-3 py-1.5 rounded-lg border border-[#c0c8c4] hover:bg-[#eeeee7] text-[#1a1c18] text-xs font-semibold transition-all">
           Ficha
         </button>
         <button onclick="window.openDonarOrgModal('${org.id}', '${org.nombre.replace(/'/g, "\\'")}', '${org.municipio}')" class="px-3.5 py-1.5 rounded-lg bg-[#00261e] hover:bg-[#123d32] text-white text-xs font-semibold flex items-center gap-1.5 shadow-sm transition-all">
@@ -248,9 +248,17 @@ window.asignarLoteAOrg = function(loteId) {
     });
 
     window.closeDonarOrgModal();
-    alert(`¡Excelente! El lote ${loteId} ha sido asignado a ${selectedOrgForDonation.nombre}. Se ha notificado a la red logística.`);
+    if (typeof window.showToast === 'function') {
+      window.showToast(
+        '¡Lote asignado con éxito!',
+        `El lote ${loteId} fue vinculado a ${selectedOrgForDonation.nombre} y se notificó a la ruta de transporte.`,
+        'success'
+      );
+    }
   } catch (err) {
-    alert('Error al asignar lote: ' + err.message);
+    if (typeof window.showToast === 'function') {
+      window.showToast('Error al asignar lote', err.message, 'error');
+    }
   }
 };
 

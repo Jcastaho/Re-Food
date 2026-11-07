@@ -58,11 +58,14 @@
 </head>
 <body class="bg-[#fafaf3] text-[#1a1c18] antialiased min-h-screen">
 
-  <!-- SIDEBAR LATERAL FIJA -->
-  <aside id="app-sidebar" class="fixed left-0 top-0 h-screen w-[240px] bg-[#123d32] text-white z-50 flex flex-col justify-between py-4 px-3 select-none shadow-xl border-r border-[#0d2d25]">
+  <!-- BACKDROP MÓVIL PARA SIDEBAR -->
+  <div id="sidebar-backdrop" onclick="window.toggleMobileSidebar(false)" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity"></div>
+
+  <!-- SIDEBAR LATERAL FIJA (ADAPTABLE EN MÓVIL) -->
+  <aside id="app-sidebar" class="fixed left-0 top-0 h-screen w-[240px] bg-[#123d32] text-white z-50 flex flex-col justify-between py-4 px-3 select-none shadow-xl border-r border-[#0d2d25] transition-transform duration-300 -translate-x-full lg:translate-x-0">
     <div class="flex flex-col gap-4 overflow-y-auto pr-1">
       <!-- Logo Re-Food Oficial -->
-      <div class="px-2 pt-1 flex items-center justify-between cursor-pointer" onclick="window.navigate('resumen')">
+      <div class="px-2 pt-1 flex items-center justify-between cursor-pointer" onclick="window.navigate(localStorage.getItem('refood_role') === 'receptor' ? 'receptor-dashboard' : 'resumen')">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" class="h-9 w-auto max-w-full" fill="none">
           <g transform="translate(15, 20)">
             <path d="M 32 5 C 10 20 6 42 18 55 C 24 40 28 22 32 5 Z" fill="#E6EDE3"></path>
@@ -160,8 +163,8 @@
             <span class="w-2 h-2 rounded-full bg-[#d5ee76] animate-pulse"></span>
           </a>
           <a href="#receptor-muelle" data-path="receptor-muelle" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
-            <span class="material-symbols-outlined text-[19px]">forklift</span>
-            <span>Recepción en Muelle</span>
+            <span class="material-symbols-outlined text-[19px]">inventory</span>
+            <span>Recepción de Alimentos</span>
           </a>
         </div>
 
@@ -178,7 +181,7 @@
           </a>
           <a href="#ruta-logistica" data-path="ruta-logistica" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
             <span class="material-symbols-outlined text-[19px]">route</span>
-            <span>Furgón en Camino</span>
+            <span>Vehículo en Camino</span>
           </a>
         </div>
 
@@ -191,7 +194,7 @@
           </a>
           <a href="#guia-conservacion" data-path="guia-conservacion" class="nav-item flex items-center gap-2.5 px-3 py-2 rounded-xl text-[#a4d0c0] hover:bg-[#1b4e41] hover:text-white text-xs font-medium transition-all">
             <span class="material-symbols-outlined text-[19px]">menu_book</span>
-            <span>Protocolo Bromatológico</span>
+            <span>Guía de Higiene y Calidad</span>
           </a>
         </div>
       </div>
@@ -238,14 +241,19 @@
   </aside>
 
   <!-- CONTENEDOR PRINCIPAL -->
-  <div id="content-wrapper" class="pl-[240px] flex flex-col min-h-screen transition-all">
+  <div id="content-wrapper" class="lg:pl-[240px] flex flex-col min-h-screen transition-all">
     <!-- HEADER SUPERIOR FLOTANTE -->
-    <header id="app-header" class="sticky top-0 right-0 h-16 bg-[#fafaf3]/90 backdrop-blur-md z-40 border-b border-[#e8e9e2] px-6 flex items-center justify-between shadow-xs">
-      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs">
-        <span class="text-[#717975] font-bold uppercase tracking-wider" id="header-breadcrumb-prefix">Panel Donante</span>
-        <span class="text-[#c0c8c4]">/</span>
-        <span class="text-[#546500] font-bold" id="breadcrumb-current">Panel Resumen</span>
-      </nav>
+    <header id="app-header" class="sticky top-0 right-0 h-16 bg-[#fafaf3]/90 backdrop-blur-md z-30 border-b border-[#e8e9e2] px-4 sm:px-6 flex items-center justify-between shadow-xs">
+      <div class="flex items-center gap-2">
+        <button type="button" onclick="window.toggleMobileSidebar()" class="lg:hidden p-2 -ml-1 rounded-xl hover:bg-[#eeeee7] text-[#00261e] flex items-center justify-center transition-colors" aria-label="Abrir menú">
+          <span class="material-symbols-outlined text-[22px]">menu</span>
+        </button>
+        <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs">
+          <span class="text-[#717975] font-bold uppercase tracking-wider hidden sm:inline" id="header-breadcrumb-prefix">Panel Donante</span>
+          <span class="text-[#c0c8c4] hidden sm:inline">/</span>
+          <span class="text-[#546500] font-bold truncate max-w-[200px] sm:max-w-none" id="breadcrumb-current">Panel Resumen</span>
+        </nav>
+      </div>
 
       <div class="flex items-center gap-4">
         <!-- Notificaciones -->

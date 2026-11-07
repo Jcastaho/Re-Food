@@ -47,7 +47,7 @@ export const routes = {
   // Rutas Receptor (Fundación / Comedor)
   'receptor-dashboard': { title: 'Centro de Acopio · Fundación Saciar', render: renderReceptorDashboard },
   'receptor-disponibles': { title: 'Muro de Rescate · Alimentos Disponibles', render: renderReceptorDisponibles },
-  'receptor-muelle': { title: 'Recepción en Muelle y Bodega', render: renderReceptorMuelle },
+  'receptor-muelle': { title: 'Recepción de Alimentos y Bodega', render: renderReceptorMuelle },
   'receptor-actas': { title: 'Actas y Certificados Emitidos', render: renderReceptorActas },
   'receptor-impacto': { title: 'Distribución y Beneficiarios', render: renderReceptorImpacto },
   'receptor-perfil': { title: 'Ficha Institucional Receptora', render: renderReceptorPerfil },
@@ -106,7 +106,27 @@ export function applyRoleShell(role = 'donante') {
   }
 }
 
+export function toggleMobileSidebar(forceState) {
+  const sidebar = document.getElementById('app-sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
+  if (!sidebar) return;
+
+  const isClosed = sidebar.classList.contains('-translate-x-full');
+  const shouldOpen = typeof forceState === 'boolean' ? forceState : isClosed;
+
+  if (shouldOpen) {
+    sidebar.classList.remove('-translate-x-full');
+    sidebar.classList.add('translate-x-0');
+    if (backdrop) backdrop.classList.remove('hidden');
+  } else {
+    sidebar.classList.add('-translate-x-full');
+    sidebar.classList.remove('translate-x-0');
+    if (backdrop) backdrop.classList.add('hidden');
+  }
+}
+
 window.applyRoleShell = applyRoleShell;
+window.toggleMobileSidebar = toggleMobileSidebar;
 
 export function navigate(routeInput = 'resumen') {
   const [routeName, queryString] = routeInput.split('?');
@@ -127,13 +147,16 @@ export function navigate(routeInput = 'resumen') {
   const currentRole = localStorage.getItem('refood_role') || 'donante';
   applyRoleShell(currentRole);
 
+  // Cerrar drawer móvil al navegar
+  toggleMobileSidebar(false);
+
   // Si es pantalla completa (ej: Login), ocultamos sidebar y header
   if (route.isFullPage) {
     if (sidebar) sidebar.classList.add('hidden');
     if (header) header.classList.add('hidden');
     if (footer) footer.classList.add('hidden');
     if (contentWrapper) {
-      contentWrapper.classList.remove('pl-[240px]');
+      contentWrapper.classList.remove('lg:pl-[240px]', 'pl-[240px]');
       contentWrapper.classList.add('pl-0');
     }
   } else {
@@ -141,8 +164,8 @@ export function navigate(routeInput = 'resumen') {
     if (header) header.classList.remove('hidden');
     if (footer) footer.classList.remove('hidden');
     if (contentWrapper) {
-      contentWrapper.classList.remove('pl-0');
-      contentWrapper.classList.add('pl-[240px]');
+      contentWrapper.classList.remove('pl-0', 'pl-[240px]');
+      contentWrapper.classList.add('lg:pl-[240px]');
     }
   }
 

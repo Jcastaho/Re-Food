@@ -46,7 +46,7 @@ export const INITIAL_EXCEDENTES = [
     caducidadHoras: 8,
     temperatura: "Refrigerado (4°C)",
     horaLimite: "19:30",
-    notas: "Almacenado a 4°C en cámara frigorífica. Listo para transporte isotérmico.",
+    notas: "Almacenado a 4°C en cuarto frío. Listo para transporte refrigerado.",
     imagenUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80",
     organizacionDestino: "En proceso de match",
     fechaPublicacion: "18 de octubre de 2026, 10:00"
@@ -180,5 +180,32 @@ export const INITIAL_NOTIFICACIONES = [
     hora: "Ayer a las 18:00",
     tipo: "check",
     leida: true
+  }
+];
+
+export const INITIAL_DISTRIBUCIONES = [
+  {
+    id: "DIST-101",
+    fecha: "18 de octubre de 2026, 12:30",
+    grupo: "Primera Infancia y Niños",
+    raciones: 85,
+    menu: "Almuerzo balanceado: proteína cocida, arroz con vegetales y fruta",
+    responsable: "Marta Lucía Correa"
+  },
+  {
+    id: "DIST-102",
+    fecha: "18 de octubre de 2026, 11:45",
+    grupo: "Adultos Mayores",
+    raciones: 60,
+    menu: "Sopa nutritiva, pollo al horno y porción de pan artesanal",
+    responsable: "Carlos Andrés Mejía"
+  },
+  {
+    id: "DIST-103",
+    fecha: "17 de octubre de 2026, 16:20",
+    grupo: "Madres Cabeza de Familia",
+    raciones: 95,
+    menu: "Paquete alimentario: panadería del día, aguacate, tomate y cereales",
+    responsable: "Marta Lucía Correa"
   }
 ];

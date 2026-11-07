@@ -4,7 +4,7 @@
  * Seguro para entornos de navegador y testing con persistencia en LocalStorage
  */
 
-import { INITIAL_EXCEDENTES, INITIAL_ORGANIZACIONES, INITIAL_NOTIFICACIONES } from './mockData.js';
+import { INITIAL_EXCEDENTES, INITIAL_ORGANIZACIONES, INITIAL_NOTIFICACIONES, INITIAL_DISTRIBUCIONES } from './mockData.js';
 import { Excedente } from '../core/entities.js';
 import { getDefaultImageForCategory } from '../core/imageCompressor.js';
 
@@ -13,8 +13,11 @@ class DataRepository {
     this.STORAGE_KEY_EXCEDENTES = 'refood_excedentes_v2';
     this.STORAGE_KEY_NOTIFS = 'refood_notificaciones_v2';
     this.STORAGE_KEY_PERFIL = 'refood_perfil_donante_v1';
+    this.STORAGE_KEY_PERFIL_RECEPTOR = 'refood_perfil_receptor_v1';
+    this.STORAGE_KEY_DISTRIBUCIONES = 'refood_distribuciones_v1';
     this._memoryExcedentes = [...INITIAL_EXCEDENTES];
     this._memoryNotifs = [...INITIAL_NOTIFICACIONES];
+    this._memoryDistribuciones = [...INITIAL_DISTRIBUCIONES];
     this._memoryPerfil = {
       nombre: 'Provenza Bistro & Café',
       razonSocial: 'Provenza Gastronomía S.A.S.',
@@ -29,6 +32,18 @@ class DataRepository {
       tipoCocina: 'Restaurante Fusión & Cafetería',
       alertaWhatsapp: true,
       alertaEmail: true
+    };
+    this._memoryPerfilReceptor = {
+      nombre: 'Fundación Saciar - Nutrimos el Futuro',
+      nit: '890.981.234-5',
+      coordinador: 'Marta Lucía Correa',
+      telefono: '+57 (604) 312 8840',
+      direccion: 'Calle 30A # 65-12, Belén',
+      municipio: 'Medellín',
+      capacidadKgDia: 420,
+      cuartoFrioTemp: '3.8 °C',
+      horarioRecepcion: 'Lunes a Sábado: 07:00 - 19:30',
+      estadoRecepcion: 'Abierto'
     };
     this._initStorage();
   }
@@ -64,6 +79,12 @@ class DataRepository {
       }
       if (!localStorage.getItem(this.STORAGE_KEY_PERFIL)) {
         localStorage.setItem(this.STORAGE_KEY_PERFIL, JSON.stringify(this._memoryPerfil));
+      }
+      if (!localStorage.getItem(this.STORAGE_KEY_PERFIL_RECEPTOR)) {
+        localStorage.setItem(this.STORAGE_KEY_PERFIL_RECEPTOR, JSON.stringify(this._memoryPerfilReceptor));
+      }
+      if (!localStorage.getItem(this.STORAGE_KEY_DISTRIBUCIONES)) {
+        localStorage.setItem(this.STORAGE_KEY_DISTRIBUCIONES, JSON.stringify(this._memoryDistribuciones));
       }
     } catch {
       // Fallback a memoria silencioso
@@ -255,6 +276,93 @@ class DataRepository {
     });
 
     return actualizado;
+  }
+
+  getPerfilReceptor() {
+    if (!this._isStorageAvailable()) return this._memoryPerfilReceptor;
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY_PERFIL_RECEPTOR);
+      return raw ? JSON.parse(raw) : this._memoryPerfilReceptor;
+    } catch {
+      return this._memoryPerfilReceptor;
+    }
+  }
+
+  updatePerfilReceptor(data) {
+    const actual = this.getPerfilReceptor();
+    const actualizado = {
+      ...actual,
+      ...data,
+      capacidadKgDia: data.capacidadKgDia !== undefined ? parseFloat(data.capacidadKgDia) : actual.capacidadKgDia
+    };
+
+    if (this._isStorageAvailable()) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY_PERFIL_RECEPTOR, JSON.stringify(actualizado));
+      } catch {
+        this._memoryPerfilReceptor = actualizado;
+      }
+    } else {
+      this._memoryPerfilReceptor = actualizado;
+    }
+
+    this.addNotificacion({
+      titulo: 'Ficha de la fundación actualizada',
+      detalle: `Los datos operativos de ${actualizado.nombre} fueron guardados.`,
+      hora: 'Hace un momento',
+      tipo: 'check'
+    });
+
+    return actualizado;
+  }
+
+  getDistribuciones() {
+    if (!this._isStorageAvailable()) return this._memoryDistribuciones;
+    try {
+      const raw = localStorage.getItem(this.STORAGE_KEY_DISTRIBUCIONES);
+      return raw ? JSON.parse(raw) : this._memoryDistribuciones;
+    } catch {
+      return this._memoryDistribuciones;
+    }
+  }
+
+  addDistribucion({ grupo, raciones, menu, responsable }) {
+    const list = this.getDistribuciones();
+    const nueva = {
+      id: `DIST-${Math.floor(100 + Math.random() * 900)}`,
+      fecha: new Date().toLocaleString('es-CO', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      }),
+      grupo: grupo || 'Primera Infancia y Niños',
+      raciones: parseInt(raciones, 10) || 10,
+      menu: menu || 'Almuerzo comunitario balanceado',
+      responsable: responsable || 'Marta Lucía Correa'
+    };
+
+    list.unshift(nueva);
+
+    if (this._isStorageAvailable()) {
+      try {
+        localStorage.setItem(this.STORAGE_KEY_DISTRIBUCIONES, JSON.stringify(list));
+      } catch {
+        this._memoryDistribuciones = list;
+      }
+    } else {
+      this._memoryDistribuciones = list;
+    }
+
+    this.addNotificacion({
+      titulo: 'Entrega de raciones registrada',
+      detalle: `Se sirvieron ${nueva.raciones} raciones para ${nueva.grupo}.`,
+      hora: 'Hace un momento',
+      tipo: 'eco'
+    });
+
+    return nueva;
   }
 
   addNotificacion({ titulo, detalle, hora = 'Hace un instante', tipo = 'info' }) {
